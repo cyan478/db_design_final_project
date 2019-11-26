@@ -1,10 +1,10 @@
 # db_design_final_project
 
-####project backend requirements: https://docs.google.com/document/d/1DOtUcqX2hHKw4i1Dx68XlpsfPP_Y7THNC4YG61XfZgs/edit
+project backend requirements: https://docs.google.com/document/d/1DOtUcqX2hHKw4i1Dx68XlpsfPP_Y7THNC4YG61XfZgs/edit
 
-####project frontend requirements: https://docs.google.com/document/d/1LGPTxFPS-IW1I699sFSLOGMB1hVgHLCpJDOJ8O145tM/edit
+project frontend requirements: https://docs.google.com/document/d/1LGPTxFPS-IW1I699sFSLOGMB1hVgHLCpJDOJ8O145tM/edit
 
-####final report requirements: https://docs.google.com/document/d/1DOtUcqX2hHKw4i1Dx68XlpsfPP_Y7THNC4YG61XfZgs/edit
+final report requirements: https://docs.google.com/document/d/1DOtUcqX2hHKw4i1Dx68XlpsfPP_Y7THNC4YG61XfZgs/edit
 
 BONUS POINTS: Complicated schema – user data pull requires multi-joins, or many tables (> 10 ) due to the complexity of the data domain (1-5 points)
 
