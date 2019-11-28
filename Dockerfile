@@ -1,0 +1,3 @@
+FROM ubuntu:18.04
+
+EXPOSE 5000
