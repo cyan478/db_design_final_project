@@ -1,4 +1,6 @@
 **/node_modules
+# data
+src/database_data
 # api key
 yhack_gcloud_apikey.json
 *.pyc

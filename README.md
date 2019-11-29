@@ -17,11 +17,22 @@ BONUS POINTS: Difficult process for data extraction for the database, such as we
 ---
 
 ## Running Process
-```bash
+1. Starting docker
+```sh
 # running docker container and commiting changes to images
 ./init_docker.sh
 docker attach db_project
 
 # detach using ctrl+p, ctrl+q
 docker commit db_project db_project:<version>
+```
+
+2. Starting MySQL server
+```sh
+server mysql restart
+mysql -u root -p
+> source database.sql;
+> show databases;
+> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<password';
+> flush privileges;
 ```
