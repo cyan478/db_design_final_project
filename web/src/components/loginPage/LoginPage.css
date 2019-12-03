@@ -1,0 +1,95 @@
+
+.loginPage {
+	font-family: SF-Pro-Regular;
+	background-color: #385686;
+	width: 100%;
+}
+
+.loginPage .loginPanel {
+	margin-left: 100px;
+	margin-top: 120px;
+	width: 340px;
+	padding: 45px;
+	color: gray;
+	background-color: white;
+	border-radius: 10px;
+}
+
+.loginPanel .header {
+
+}
+
+.loginPanel .header .toggleBar {
+	font-family: SF-Pro-Bold;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-bottom: 50px;
+  font-size: 24px;
+}
+
+.loginPanel .header .toggleBar .toggle {
+	padding-bottom: 5px;
+}
+
+.loginPanel .header .toggleBar .toggle.selected {
+	color: #01205B;
+	border-bottom: 4px solid #FF8900;
+}
+
+.loginPanel .login {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginPanel .signup {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginPanel .username-header {
+	font-family: SF-Pro-Medium;
+	color: #01205B;
+	margin-bottom: 8px;
+}
+
+.loginPanel .password-header {
+	font-family: SF-Pro-Medium;
+	color: #01205B;
+	margin-bottom: 8px;
+}
+
+.loginPanel .username-textfield {
+	border: 0px solid gray;
+}
+
+.loginPanel .username-textfield {
+	margin-bottom: 20px;
+}
+
+.loginPanel .password-textfield {
+	margin-bottom: 20px;
+}
+
+.loginPanel .login-button {
+	margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: #01205B;
+  border: 2px solid #01205B;
+}
+
+.loginPanel .login-button:hover {
+  display: flex;
+  flex-direction: column;
+  background-color: #01205B;
+  color: white;
+  border: 2px solid #01205B;
+}
+
+/*-----------------------------------------------------*/
+
+
+
+
