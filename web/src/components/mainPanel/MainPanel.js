@@ -66,38 +66,6 @@ function renderGeneralInsights(selectedAirline) {
   );
 }
 
-// function renderEmployeeSpecific() {
-//   return (
-//     <React.Fragment>
-//       {renderTitle("Employee-Specific Comments")}
-//       {renderTitleText(
-//         "View employee-specific feedback and shoutouts directly from our customers."
-//       )}
-//       <div style={{ display: "flex", flexDirection: "row", height: "240px" }}>
-//         <TextPanel
-//           style={{
-//             flex: 1,
-//             backgroundImage: `url(${shortBarStatsBGImage})`,
-//             backgroundSize: "100%"
-//           }}
-//           boldedText='13%'
-//           bodyText='of our 2019 social media comments are about our employees.'
-//         />
-//         <TextPanel
-//           style={{
-//             flex: 1,
-//             backgroundImage: `url(${shortLineStatsBGImage})`,
-//             backgroundSize: "100%"
-//           }}
-//           boldedText='202'
-//           bodyText='shoutouts have been given to our JetBlue employees in 2019.'
-//         />
-//       </div>
-//       <TablePanel title='Compiled Employee-Specific Feedback' subtitle='An immediate extensive list can be downloaded in a full Excel sheet in the upper right' />
-//     </React.Fragment>
-//   );
-// }
-
 function renderFacebookInsights(selectedAirline) {
   selectedAirline = capitalize(selectedAirline);
   
