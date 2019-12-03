@@ -10,16 +10,15 @@ import shortLineStatsBGImage from "../../../public/images/short-line-stats.png";
 import shortBarStatsBGImage from "../../../public/images/short-bar-stats.png";
 import longStatsBGImage from "../../../public/images/long-stats.png";
 
-import facebookCloudImage from "../../../public/images/facebook-cloud.png";
-import twitterCloudImage from "../../../public/images/twitter-cloud.png";
-import tripAdvisorCloudImage from "../../../public/images/tripadvisor-cloud.png";
-
 import ToggleablePanel from "./ToggleablePanel";
 import TextPanel from "./TextPanel";
-import ImagePanel from "./ImagePanel";
+import MyFilterPanel from "./MyFilterPanel";
+import JustReviewsPanel from "./JustReviewsPanel";
 import FilterPanel from "./FilterPanel";
+import MyFilterPanel from "./MyFilterPanel";
 import TablePanel from "./TablePanel";
 import BarChart from "./BarChart";
+import JustReviewsPanel from "./JustReviewsPanel";
 
 function renderGeneralInsights() {
   const options = {
@@ -158,6 +157,32 @@ function renderTripAdvisorInsights() {
   );
 }
 
+
+function renderAccountManagement() {
+  return (
+    <React.Fragment>
+      {renderTitle("Welcome back, <username>")}
+      {renderTitleText("change this TEXT.")}
+      <MyFilterPanel
+        title={"My Saved Reviews"}
+        titleText={
+          "Search or filter a specific airline to find specific reviews you've saved. You can also remove saved reviews from your list."
+        }
+        sourceFilter={"facebook"} //uh what
+        tags={["JetBlue Airways", "Alaska Airlines", "Delta Air Lines"]}
+      />
+
+      <JustReviewsPanel
+        title={"My Written Reviews"}
+        titleText={
+          "These are reviews you have contributed to this site with your account."
+        }
+      />
+    </React.Fragment>
+  );
+}
+
+
 function renderTitle(title) {
   return <div className='bigTitle'>{title}</div>;
 }
@@ -177,6 +202,8 @@ function renderCorrectPanel(selectedPanel) {
     return renderTwitterInsights();
   } else if (selectedPanel === "tripadvisor") {
     return renderTripAdvisorInsights();
+  } else if (selectedPanel === "account") {
+    return renderAccountManagement();
   } else {
     return <div>Still In Progress ... Come back another time</div>;
   }
