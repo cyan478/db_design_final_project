@@ -18,7 +18,9 @@ import ToggleablePanel from "./ToggleablePanel";
 import TextPanel from "./TextPanel";
 import ImagePanel from "./ImagePanel";
 import FilterPanel from "./FilterPanel";
+import MyFilterPanel from "./MyFilterPanel";
 import TablePanel from "./TablePanel";
+import JustReviewsPanel from "./JustReviewsPanel";
 
 function renderGeneralInsights() {
   const options = {
@@ -187,6 +189,31 @@ function renderTripAdvisorInsights() {
 }
 
 
+function renderAccountManagement() {
+  return (
+    <React.Fragment>
+      {renderTitle("Welcome back, <username>")}
+      {renderTitleText("change this TEXT.")}
+      <MyFilterPanel
+        title={"My Saved Reviews"}
+        titleText={
+          "Search or filter a specific airline to find specific reviews you've saved. You can also remove saved reviews from your list."
+        }
+        sourceFilter={"facebook"} //uh what
+        tags={["JetBlue Airways", "Alaska Airlines", "Delta Air Lines"]}
+      />
+
+      <JustReviewsPanel
+        title={"My Written Reviews"}
+        titleText={
+          "These are reviews you have contributed to this site with your account."
+        }
+      />
+    </React.Fragment>
+  );
+}
+
+
 function renderTitle(title) {
   return <div className='bigTitle'>{title}</div>;
 }
@@ -206,6 +233,8 @@ function renderCorrectPanel(selectedPanel) {
     return renderTwitterInsights();
   } else if (selectedPanel === "tripadvisor") {
     return renderTripAdvisorInsights();
+  } else if (selectedPanel === "account") {
+    return renderAccountManagement();
   } else {
     return <div>Still In Progress ... Come back another time</div>;
   }
