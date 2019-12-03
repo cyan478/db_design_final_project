@@ -15,10 +15,7 @@ import TextPanel from "./TextPanel";
 import MyFilterPanel from "./MyFilterPanel";
 import JustReviewsPanel from "./JustReviewsPanel";
 import FilterPanel from "./FilterPanel";
-import MyFilterPanel from "./MyFilterPanel";
 import TablePanel from "./TablePanel";
-import BarChart from "./BarChart";
-import JustReviewsPanel from "./JustReviewsPanel";
 
 function renderGeneralInsights() {
   const options = {
