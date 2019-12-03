@@ -10,9 +10,9 @@ import shortLineStatsBGImage from "../../../public/images/short-line-stats.png";
 import shortBarStatsBGImage from "../../../public/images/short-bar-stats.png";
 import longStatsBGImage from "../../../public/images/long-stats.png";
 
-import facebookCloudImage from "../../../public/images/facebook-cloud.png";
-import twitterCloudImage from "../../../public/images/twitter-cloud.png";
-import tripAdvisorCloudImage from "../../../public/images/tripadvisor-cloud.png";
+// import facebookCloudImage from "../../../public/images/facebook-cloud.png";
+// import twitterCloudImage from "../../../public/images/twitter-cloud.png";
+// import tripAdvisorCloudImage from "../../../public/images/tripadvisor-cloud.png";
 
 import ToggleablePanel from "./ToggleablePanel";
 import TextPanel from "./TextPanel";
@@ -21,6 +21,7 @@ import FilterPanel from "./FilterPanel";
 import MyFilterPanel from "./MyFilterPanel";
 import TablePanel from "./TablePanel";
 import JustReviewsPanel from "./JustReviewsPanel";
+import UpdatePasswordPanel from "./UpdatePasswordPanel";
 
 function renderGeneralInsights() {
   const options = {
@@ -112,7 +113,7 @@ function renderFacebookInsights() {
       />
       <ImagePanel
         titleText='Trending Words on Facebook Comments'
-        url={facebookCloudImage}
+        // url={facebookCloudImage}
       /> */}
       <FilterPanel
         title={"Search Facebook comments"}
@@ -143,7 +144,7 @@ function renderTwitterInsights() {
       />
       <ImagePanel
         titleText='Trending Words on Twitter tweets'
-        url={twitterCloudImage}
+        // url={twitterCloudImage}
       />
       <FilterPanel
         title={"Filter Twitter Comments"}
@@ -174,7 +175,7 @@ function renderTripAdvisorInsights() {
       />
       <ImagePanel
         titleText='Trending Words on Trip Advisor Reviews'
-        url={tripAdvisorCloudImage}
+        // url={tripAdvisorCloudImage}
       />
       <FilterPanel
         title={"Filter Trip Advisor Reviews"}
@@ -189,7 +190,7 @@ function renderTripAdvisorInsights() {
 }
 
 
-function renderAccountManagement() {
+function renderMyAccount() {
   return (
     <React.Fragment>
       {renderTitle("Welcome back, <username>")}
@@ -213,6 +214,21 @@ function renderAccountManagement() {
   );
 }
 
+function renderAccountSettings() {
+  return (
+    <React.Fragment>
+      {renderTitle("My Account Settings")}
+      {renderTitleText("Modify any settings related to your personal account.")}
+      <UpdatePasswordPanel
+        title={"Update my password"}
+        titleText={
+          "Change the password to your account here."
+        }
+
+      />
+    </React.Fragment>
+  );
+}
 
 function renderTitle(title) {
   return <div className='bigTitle'>{title}</div>;
@@ -234,7 +250,9 @@ function renderCorrectPanel(selectedPanel) {
   } else if (selectedPanel === "tripadvisor") {
     return renderTripAdvisorInsights();
   } else if (selectedPanel === "account") {
-    return renderAccountManagement();
+    return renderMyAccount();
+  } else if (selectedPanel === "accountsettings") {
+    return renderAccountSettings();
   } else {
     return <div>Still In Progress ... Come back another time</div>;
   }
