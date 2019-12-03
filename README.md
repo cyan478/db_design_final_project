@@ -1,3 +1,14 @@
+# Running
+1. Set up server
+
+## Setting up NLP Analysis
+https://cloud.google.com/natural-language/docs/quickstart
+
+```
+export GOOGLE_APPLICATION_CREDENTIALS="[ABSOLUTE_PATH_TO_API_KEY]"
+pip3 install google-cloud-language
+```
+
 # DB Project
 
 project backend requirements: https://docs.google.com/document/d/1DOtUcqX2hHKw4i1Dx68XlpsfPP_Y7THNC4YG61XfZgs/edit
@@ -29,10 +40,15 @@ docker commit db_project db_project:<version>
 
 2. Starting MySQL server
 ```sh
-server mysql restart
+service mysql restart
 mysql -u root -p
 > source database.sql;
 > show databases;
 > ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<password';
 > flush privileges;
 ```
+
+---
+
+## Tutorials
+http://www.mysqltutorial.org/mysql-nodejs/call-stored-procedures/
