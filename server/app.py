@@ -13,7 +13,7 @@ connection = pymysql.connect(host='localhost',
                            cursorclass=pymysql.cursors.DictCursor)
 
 # ========================================================
-# reviews table
+# reviews and keywords table
 
 # endpoint to GET specified reviews from reviews table
 @app.route('/reviews', methods=['GET'])
@@ -35,7 +35,7 @@ def get_reviews():
          from keywords\
          left outer join reviews \
          on reviews.review_id = keywords.review_id\
-         where keyword like {})'.format(keyword)
+         where keyword like \'{}\')'.format(keyword)
    if company:
       company_filter = 't.company_id = (select company_id\
          from companies\
@@ -50,11 +50,12 @@ def get_reviews():
       ' WHERE ' + company_filter + ' AND ' + site_filter + ';'
 
    with connection.cursor() as cur:
-      print(sql_query)
+      print("==============================\n{}".format(sql_query))
       cur.execute(sql_query)
       reviews = []
       for review in cur.fetchall():
          reviews.append(review)
+      print({'reviews': reviews})
       return {'reviews': reviews}
 
 # endpoint to insert rows into table
@@ -81,17 +82,26 @@ def insert_review():
       (select site_id from sites\
       where lower(site_name) like lower(\'{}\') limit 1),\
       {:.2f},\'{}\',\'{}\')".format(
-         poster_username,
-         company_name,
-         review_site_name,
+         poster_username.translate(str.maketrans({"'": r"\'",
+                                          "\"": r"\"",
+                                          "\\": r"\\"})),
+         company_name.translate(str.maketrans({"'": r"\'",
+                                          "\"": r"\"",
+                                          "\\": r"\\"})),
+         review_site_name.translate(str.maketrans({"'": r"\'",
+                                          "\"": r"\"",
+                                          "\\": r"\\"})),
          review_sentiment,
          date,
-         review_content
+         review_content.translate(str.maketrans({"'": r"\'",
+                                          "\"": r"\"",
+                                          "\\": r"\\"}))
       )
    get_id_statement = "select last_insert_id();"
 
    # insert review into reviews table
    with connection.cursor() as cur:
+      print(insert_statement)
       cur.execute(insert_statement)
       connection.commit()
       cur.execute(get_id_statement)
@@ -103,11 +113,58 @@ def insert_review():
          keyword = entity['value']
          insert_statement = "INSERT INTO keywords (\
             keyword,\
-            review_id\
-         ) values (\'{}\',{})".format(keyword, review_id)
+            review_id,\
+            sentiment\
+         ) values (\'{}\',{},{:.2f})".format(keyword, review_id, review_sentiment)
          cur.execute(insert_statement)
       connection.commit()
    return 'success'
+
+# endpoint to get keywords from specific sites or companies
+@app.route('/keywords', methods=['GET'])
+def get_keywords():
+   site = request.args.get('site', default=None, type=str)
+   company = request.args.get('company', default=None, type=str)
+   sentiment = request.args.get('sentiment', type=str)
+
+   selections = 'select keyword, count(*) as count'
+   table_source = 'reviews'
+   company_filter = 'true'
+   site_filter = 'true'
+   
+   if company:
+      company_filter = 'company_id = \
+         (select company_id \
+         from companies where lower(company_name) \
+         like \'{}\' limit 1)'.format(company)
+   if site:
+      site_filter = 'review_site_id = \
+         (select site_id \
+         from sites where lower(site_name) \
+         like \'{}\' limit 1)'.format(site)
+   if site or company:
+      table_source = '(select review_id\
+	      from reviews \
+         where {} and {})'.format(company_filter, site_filter)
+   if sentiment == 'positive':
+      sentiment_comparator = '>'
+   else:
+      sentiment_comparator = '<'
+
+   sql_query = selections + \
+      ' FROM ' + table_source + ' AS t ' \
+      ' LEFT OUTER JOIN keywords on keywords.review_id = t.review_id' + \
+      ' where keywords.sentiment ' + sentiment_comparator + ' 0 ' + \
+      'group by keyword;'
+
+   with connection.cursor() as cur:
+      print("==============================\n{}".format(sql_query))
+      cur.execute(sql_query)
+      keywords = []
+      for keyword in cur.fetchall():
+         keywords.append(keyword)
+      print({'keywords': keywords})
+      return {'keywords': keywords}
 
 # ========================================================
 # user table

@@ -19,6 +19,7 @@ import TextPanel from "./TextPanel";
 import ImagePanel from "./ImagePanel";
 import FilterPanel from "./FilterPanel";
 import TablePanel from "./TablePanel";
+import BarChart from "./BarChart";
 
 function renderGeneralInsights() {
   const options = {
@@ -94,30 +95,25 @@ function renderEmployeeSpecific() {
 }
 
 function renderFacebookInsights() {
+  // get facebook keywords
+  
   return (
     <React.Fragment>
       {renderTitle("Reviews on Facebook")}
       {renderTitleText("View the most current trending words our customers are saying on Facebook about JetBlue's customer and in-flight service.")}
-      {/* <TextPanel
-        style={{
-          flex: 1,
-          backgroundImage: `url(${longStatsBGImage})`,
-          backgroundSize: "110%",
-          height: "240px"
-        }}
-        boldedText='32%'
-        bodyText='of our 2019 social media comments is comprised of Facebook comments.'
-      />
-      <ImagePanel
-        titleText='Trending Words on Facebook Comments'
-        url={facebookCloudImage}
+      {/* <BarChart
+        key={"alaska airlines", "facebook", "positive"}
+        review_site={"facebook"}
+        company={"alaska airlines"}
+        sentiment={"positive"}
       /> */}
       <FilterPanel
         title={"Search Facebook comments"}
         titleText={
           "Search or filter for a keyword to see what customers are saying on JetBlue’s Facebook posts for 2019."
         }
-        sourceFilter={"facebook"}
+        review_site={"facebook"}
+        key={'facebook'}
         tags={["flight", "bag", "customer service", "class", "smiles"]}
       />
     </React.Fragment>
@@ -125,30 +121,18 @@ function renderFacebookInsights() {
 }
 
 function renderTwitterInsights() {
+  console.log("twitter")
   return (
     <React.Fragment>
       {renderTitle("Insights from Twitter")}
       {renderTitleText("View the most current trending words our customers are saying on Twitter about JetBlue's customer and in-flight service.")}
-      <TextPanel
-        style={{
-          flex: 1,
-          backgroundImage: `url(${longStatsBGImage})`,
-          backgroundSize: "110%",
-          height: "240px"
-        }}
-        boldedText='18%'
-        bodyText='of our 2019 social media comments is comprised of Twitter tweets.'
-      />
-      <ImagePanel
-        titleText='Trending Words on Twitter tweets'
-        url={twitterCloudImage}
-      />
       <FilterPanel
         title={"Filter Twitter Comments"}
         titleText={
           "Search or filter for a keyword to see what customers are saying on JetBlue’s Twitter posts for 2019."
         }
-        sourceFilter={"twitter"}
+        review_site={"twitter"}
+        key={'twitter'}
         tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
       />
     </React.Fragment>
@@ -156,36 +140,23 @@ function renderTwitterInsights() {
 }
 
 function renderTripAdvisorInsights() {
+  console.log("trip")
   return (
     <React.Fragment>
       {renderTitle("Insights from Trip Advisor")}
       {renderTitleText("View the most current trending words our customers are saying on Trip Advisor about JetBlue's customer and in-flight service.")}
-      <TextPanel
-        style={{
-          flex: 1,
-          backgroundImage: `url(${longStatsBGImage})`,
-          backgroundSize: "110%",
-          height: "240px"
-        }}
-        boldedText='50%'
-        bodyText='of our 2019 social media comments is comprised of Trip Advisor reviews.'
-      />
-      <ImagePanel
-        titleText='Trending Words on Trip Advisor Reviews'
-        url={tripAdvisorCloudImage}
-      />
       <FilterPanel
         title={"Filter Trip Advisor Reviews"}
         titleText={
           "Search or filter for a keyword to see what customers are saying on JetBlue’s Trip Advisor page."
         }
-        sourceFilter={"tripadvisor"}
+        review_site={"tripadvisor"}
+        key={'tripadvisor'}
         tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
       />
     </React.Fragment>
   );
 }
-
 
 function renderTitle(title) {
   return <div className='bigTitle'>{title}</div>;

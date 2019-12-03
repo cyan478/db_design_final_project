@@ -3,25 +3,26 @@ import Card from "./Card";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Search from "@material-ui/icons/Search";
-import computedResults from "./test_reviews.json";
 const fetch = require("node-fetch");
 
 class FilterPanel extends Component {
   constructor(props) {
     super(props);
-
+    console.log("constructor: " + props.review_site)
     this.state = {
       filter: "",
       viewingSize: 3,
-      // results: this.sourceFilter(computedResults.results),
       results: [],
       selectedTag: ""
     };
   }
 
   componentDidMount() {
+    console.log('mounted: ' + this.props.review_site)
     // fetch data and update state
-    const url = '/reviews?site=facebook&company=alaska%20airlines ';
+    
+    // site=facebook&company=alaska%20airlines ';
+
     // const data = {
     //   site: "facebook",
     //   company: " alaska airlines"
@@ -31,49 +32,8 @@ class FilterPanel extends Component {
     //   headers: {'content-type':'application/json; charset=UTF-8'},
     //   body: data,
     //   method: 'GET'
-    // };
-
-    fetch(url)
-    .then(res => res.json())
-    .then((data) => this.setState({results: data.reviews}))
-    .catch(error => console.log(error));
-  }
-
-  sourceFilter(results) {
-    if (this.props.sourceFilter) {
-      results = results.filter(match => match.source === this.props.sourceFilter);
-    }
-    return results;
-  }
-
-  filter(results, filter) {
-    let matches = [];
-
-    for (let i = 0; i < results.length; i++) {
-      let result = results[i];
-      if (result.keywords.includes(filter)) {
-        let match = {};
-
-        let sentiment;
-        if (result.sentiment_score < 0) {
-          sentiment = "negative";
-        } else {
-          sentiment = "positive";
-        }
-
-        match["username"] = result.username;
-        match["source"] = result.source;
-        match["sentiment"] = sentiment;
-        match["location"] = result.location[0];
-        match["content"] = result.content;
-
-        matches.push(match);
-      }
-    }
-
-    matches = this.sourceFilter(matches);
-
-    return matches;
+    // };\
+    this.applyFilter("");
   }
 
   onSearchChanged(value) {
@@ -96,8 +56,15 @@ class FilterPanel extends Component {
   }
 
   applyFilter(filter) {
-    // do something to results
-    this.setState({ results: this.filter(computedResults.results, filter) });
+    var url = '/reviews?site=' + this.props.review_site;
+    if (filter != "") {
+      url + '&keyword=' + filter;
+    }
+    
+    fetch(url)
+    .then(res => res.json())
+    .then((data) => this.setState({results: data.reviews}))
+    .catch(error => console.log(error));
   }
 
   render() {
@@ -147,7 +114,7 @@ class FilterPanel extends Component {
         <div className='results'>
           {this.state.results.slice(0, this.state.viewingSize).map(result => {
             return (
-              <div className={`singleResult ${result.review_sentiment}`}>
+              <div className={`singleResult ${result.review_sentiment}`} key={result.review_id}>
                 <div className='resultHeader'>{result.poster_username}</div>
                 <div className='resultContent'>{result.review_content}</div>
               </div>
