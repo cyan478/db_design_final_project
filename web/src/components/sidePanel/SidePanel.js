@@ -36,7 +36,8 @@ class SidePanel extends Component {
 
     const accountTitle = "";
     const accountSelections = [
-      { name: "account", label: "Account" }
+      { name: "account", label: "My Account" },
+      { name: "accountsettings", label: "Account Settings" }
     ];
 
     return (

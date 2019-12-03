@@ -12,10 +12,12 @@ import longStatsBGImage from "../../../public/images/long-stats.png";
 
 import ToggleablePanel from "./ToggleablePanel";
 import TextPanel from "./TextPanel";
-import MyFilterPanel from "./MyFilterPanel";
-import JustReviewsPanel from "./JustReviewsPanel";
 import FilterPanel from "./FilterPanel";
 import TablePanel from "./TablePanel";
+import MyFilterPanel from "./MyFilterPanel";
+import JustReviewsPanel from "./JustReviewsPanel";
+import TablePanel from "./TablePanel";
+import UpdatePasswordPanel from "./UpdatePasswordPanel";
 
 function renderGeneralInsights() {
   const options = {
@@ -155,7 +157,7 @@ function renderTripAdvisorInsights() {
 }
 
 
-function renderAccountManagement() {
+function renderMyAccount() {
   return (
     <React.Fragment>
       {renderTitle("Welcome back, <username>")}
@@ -179,6 +181,21 @@ function renderAccountManagement() {
   );
 }
 
+function renderAccountSettings() {
+  return (
+    <React.Fragment>
+      {renderTitle("My Account Settings")}
+      {renderTitleText("Modify any settings related to your personal account.")}
+      <UpdatePasswordPanel
+        title={"Update my password"}
+        titleText={
+          "Change the password to your account here."
+        }
+
+      />
+    </React.Fragment>
+  );
+}
 
 function renderTitle(title) {
   return <div className='bigTitle'>{title}</div>;
@@ -200,7 +217,9 @@ function renderCorrectPanel(selectedPanel) {
   } else if (selectedPanel === "tripadvisor") {
     return renderTripAdvisorInsights();
   } else if (selectedPanel === "account") {
-    return renderAccountManagement();
+    return renderMyAccount();
+  } else if (selectedPanel === "accountsettings") {
+    return renderAccountSettings();
   } else {
     return <div>Still In Progress ... Come back another time</div>;
   }
