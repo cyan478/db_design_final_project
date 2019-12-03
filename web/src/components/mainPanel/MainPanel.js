@@ -19,7 +19,13 @@ import TablePanel from "./TablePanel";
 import BarChart from "./BarChart";
 import UpdatePasswordPanel from "./UpdatePasswordPanel";
 
-function renderGeneralInsights() {
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.substring(1);
+}
+
+function renderGeneralInsights(selectedAirline) {
+  selectedAirline = capitalize(selectedAirline);
+
   const options = {
     on: {
       name: "Positive Reviews",
@@ -51,54 +57,54 @@ function renderGeneralInsights() {
 
   return (
     <React.Fragment>
-      {renderTitle("General Insights")}
+      {renderTitle(`General Insights for ${selectedAirline}`)}
       {renderTitleText(
-        "View the most current trending words our customers are saying across social media about JetBlue’s customer and in-flight service."
+        `View the most current trending words our customers are saying across social media about ${selectedAirline}’s customer and in-flight service.`
       )}
       <ToggleablePanel on={options.on} off={options.off} />
     </React.Fragment>
   );
 }
 
-function renderEmployeeSpecific() {
-  return (
-    <React.Fragment>
-      {renderTitle("Employee-Specific Comments")}
-      {renderTitleText(
-        "View employee-specific feedback and shoutouts directly from our customers."
-      )}
-      <div style={{ display: "flex", flexDirection: "row", height: "240px" }}>
-        <TextPanel
-          style={{
-            flex: 1,
-            backgroundImage: `url(${shortBarStatsBGImage})`,
-            backgroundSize: "100%"
-          }}
-          boldedText='13%'
-          bodyText='of our 2019 social media comments are about our employees.'
-        />
-        <TextPanel
-          style={{
-            flex: 1,
-            backgroundImage: `url(${shortLineStatsBGImage})`,
-            backgroundSize: "100%"
-          }}
-          boldedText='202'
-          bodyText='shoutouts have been given to our JetBlue employees in 2019.'
-        />
-      </div>
-      <TablePanel title='Compiled Employee-Specific Feedback' subtitle='An immediate extensive list can be downloaded in a full Excel sheet in the upper right' />
-    </React.Fragment>
-  );
-}
+// function renderEmployeeSpecific() {
+//   return (
+//     <React.Fragment>
+//       {renderTitle("Employee-Specific Comments")}
+//       {renderTitleText(
+//         "View employee-specific feedback and shoutouts directly from our customers."
+//       )}
+//       <div style={{ display: "flex", flexDirection: "row", height: "240px" }}>
+//         <TextPanel
+//           style={{
+//             flex: 1,
+//             backgroundImage: `url(${shortBarStatsBGImage})`,
+//             backgroundSize: "100%"
+//           }}
+//           boldedText='13%'
+//           bodyText='of our 2019 social media comments are about our employees.'
+//         />
+//         <TextPanel
+//           style={{
+//             flex: 1,
+//             backgroundImage: `url(${shortLineStatsBGImage})`,
+//             backgroundSize: "100%"
+//           }}
+//           boldedText='202'
+//           bodyText='shoutouts have been given to our JetBlue employees in 2019.'
+//         />
+//       </div>
+//       <TablePanel title='Compiled Employee-Specific Feedback' subtitle='An immediate extensive list can be downloaded in a full Excel sheet in the upper right' />
+//     </React.Fragment>
+//   );
+// }
 
-function renderFacebookInsights() {
-  // get facebook keywords
+function renderFacebookInsights(selectedAirline) {
+  selectedAirline = capitalize(selectedAirline);
   
   return (
     <React.Fragment>
-      {renderTitle("Reviews on Facebook")}
-      {renderTitleText("View the most current trending words our customers are saying on Facebook about JetBlue's customer and in-flight service.")}
+      {renderTitle(`${selectedAirline} Reviews on Facebook`)}
+      {renderTitleText(`View the most current trending words our customers are saying on Facebook about ${selectedAirline}'s customer and in-flight service.`)}
       {/* <BarChart
         key={"alaska airlines", "facebook", "positive"}
         review_site={"facebook"}
@@ -108,7 +114,7 @@ function renderFacebookInsights() {
       <FilterPanel
         title={"Search Facebook comments"}
         titleText={
-          "Search or filter for a keyword to see what customers are saying on JetBlue’s Facebook posts for 2019."
+          `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Facebook posts for 2019.`
         }
         review_site={"facebook"}
         key={'facebook'}
@@ -118,16 +124,18 @@ function renderFacebookInsights() {
   );
 }
 
-function renderTwitterInsights() {
-  console.log("twitter")
+function renderTwitterInsights(selectedAirline) {
+  // console.log("twitter")
+  selectedAirline = capitalize(selectedAirline);
+
   return (
     <React.Fragment>
-      {renderTitle("Insights from Twitter")}
-      {renderTitleText("View the most current trending words our customers are saying on Twitter about JetBlue's customer and in-flight service.")}
+      {renderTitle(`${selectedAirline} Insights from Twitter`)}
+      {renderTitleText(`View the most current trending words our customers are saying on Twitter about ${selectedAirline}'s customer and in-flight service.`)}
       <FilterPanel
         title={"Filter Twitter Comments"}
         titleText={
-          "Search or filter for a keyword to see what customers are saying on JetBlue’s Twitter posts for 2019."
+          `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Twitter posts for 2019.`
         }
         review_site={"twitter"}
         key={'twitter'}
@@ -137,16 +145,18 @@ function renderTwitterInsights() {
   );
 }
 
-function renderTripAdvisorInsights() {
+function renderTripAdvisorInsights(selectedAirline) {
   console.log("trip")
+  selectedAirline = capitalize(selectedAirline);
+
   return (
     <React.Fragment>
-      {renderTitle("Insights from Trip Advisor")}
-      {renderTitleText("View the most current trending words our customers are saying on Trip Advisor about JetBlue's customer and in-flight service.")}
+      {renderTitle(`${selectedAirline} Insights from Trip Advisor`)}
+      {renderTitleText(`View the most current trending words our customers are saying on Trip Advisor about ${selectedAirline}'s customer and in-flight service.`)}
       <FilterPanel
         title={"Filter Trip Advisor Reviews"}
         titleText={
-          "Search or filter for a keyword to see what customers are saying on JetBlue’s Trip Advisor page."
+          `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Trip Advisor page.`
         }
         review_site={"tripadvisor"}
         key={'tripadvisor'}
@@ -205,17 +215,15 @@ function renderTitleText(titleText) {
   return <div className='bigTitleText'>{titleText}</div>;
 }
 
-function renderCorrectPanel(selectedPanel) {
-  if (selectedPanel === "general-insights") {
-    return renderGeneralInsights();
-  } else if (selectedPanel === "employee-spec") {
-    return renderEmployeeSpecific();
+function renderCorrectPanel(selectedPanel, selectedAirline) {
+  if (selectedPanel === "general") {
+    return renderGeneralInsights(selectedAirline);
   } else if (selectedPanel === "facebook") {
-    return renderFacebookInsights();
+    return renderFacebookInsights(selectedAirline);
   } else if (selectedPanel === "twitter") {
-    return renderTwitterInsights();
+    return renderTwitterInsights(selectedAirline);
   } else if (selectedPanel === "tripadvisor") {
-    return renderTripAdvisorInsights();
+    return renderTripAdvisorInsights(selectedAirline);
   } else if (selectedPanel === "account") {
     return renderMyAccount();
   } else if (selectedPanel === "accountsettings") {
@@ -226,7 +234,7 @@ function renderCorrectPanel(selectedPanel) {
 }
 
 function MainPanel(props) {
-  return <div className='mainPanel'>{renderCorrectPanel(props.selected)}</div>;
+  return <div className='mainPanel'>{renderCorrectPanel(props.selected, props.selectedAirline)}</div>;
 }
 
 export default MainPanel;

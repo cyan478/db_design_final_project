@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import SelectablePanel from "./SelectablePanel";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Search from "@material-ui/icons/Search";
+import DropdownPanel from "./DropdownPanel";
 import "./SidePanel.css"; 
 
 class SidePanel extends Component {
@@ -25,8 +23,21 @@ class SidePanel extends Component {
     );
   }
 
+  renderDropdownPanel(title, options, selected) {
+    const { onDropdownSelect } = this.props;
+
+    return (
+      <DropdownPanel
+        title={title}
+        options={options}
+        selected={selected}
+        onDropdownSelect={onDropdownSelect}
+      />
+    )
+  }
+
   render() {
-    const reviewsTitle = "JetBlue Reviews";
+    const reviewsTitle = "";
     const reviewsSelections = [
       { name: "general", label: "General"},
       { name: "facebook", label: "Facebook" },
@@ -40,10 +51,24 @@ class SidePanel extends Component {
       { name: "accountsettings", label: "Account Settings" }
     ];
 
+    const dropdownTitle = "Choose an Airline";
+    const dropdownOptions = [
+      { name: "jetblue", label: "Jetblue Airways"},
+      { name: "alaska", label: "Alaska Airlines"},
+      { name: "delta", label: "Delta Air Lines"}
+    ];
+
     return (
       <div className='sidePanel'>
         <div className='staticSidePanel'>
           <div className='title'>AirVisuals</div>
+          <div>
+            {this.renderDropdownPanel(
+              dropdownTitle,
+              dropdownOptions,
+              this.props.selectedAirline
+              )}
+          </div>
           <div>
             {this.renderSelectablePanel(
               reviewsTitle,
