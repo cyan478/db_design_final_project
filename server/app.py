@@ -171,11 +171,12 @@ def get_keywords():
 # endpoint to create user account (insert into user table)
 @app.route('/users', methods=['POST'])
 def add_user():
-   username = request.args.get['username']
-   password = request.args.get['password']
-   first_name = request.args.get['firstname']
-   last_name = request.args.get['lastname']
-   date_created = request.args.get['creationdate']
+   print("============\n{}".format(request))
+   username = request.json['username']
+   password = request.json['password']
+   first_name = request.json['firstname']
+   last_name = request.json['lastname']
+   date_created = request.json['creationdate']
    
    with connection.cursor() as cur:
       sql = "INSERT INTO users ( \
@@ -191,7 +192,7 @@ def add_user():
          last_name,\
          date_created))
       connection.commit()
-      return 'success'                      
+      return {'result': 'success'}
 
 # endpoint to get username from user table
 @app.route('/users', methods=['GET'])

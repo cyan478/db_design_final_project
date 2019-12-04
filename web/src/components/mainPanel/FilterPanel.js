@@ -19,20 +19,6 @@ class FilterPanel extends Component {
 
   componentDidMount() {
     console.log('mounted: ' + this.props.review_site)
-    // fetch data and update state
-    
-    // site=facebook&company=alaska%20airlines ';
-
-    // const data = {
-    //   site: "facebook",
-    //   company: " alaska airlines"
-    // };
-    
-    // const otherParams = {
-    //   headers: {'content-type':'application/json; charset=UTF-8'},
-    //   body: data,
-    //   method: 'GET'
-    // };\
     this.applyFilter("");
   }
 

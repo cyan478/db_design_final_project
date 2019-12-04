@@ -75,18 +75,28 @@ class Signup extends Component {
       this.setState({ usernameHelperText: "Username taken.'" });
       return;
     } else {
+      var today = new Date();
+      var date = today.getFullYear() + '-'
+             + ('0' + (today.getMonth()+1)).slice(-2) + '-'
+             + ('0' + (today.getDate())).slice(-2);
 
       const data = {
-        username: "facebook",
-        password: " alaska airlines",
-        first_name: ""
+        firstname: this.state.firstName,
+        lastname: this.state.lastName,
+        username: this.state.username,
+        password: this.state.password,
+        creationdate: date
       };
-      
       const otherParams = {
         headers: {'content-type':'application/json; charset=UTF-8'},
-        body: data,
+        body: JSON.stringify(data),
         method: 'POST'
       };
+      const url = '/users';
+      console.log(otherParams)
+      let response = await fetch(url, otherParams);
+      let success = await response.json();
+      console.log(success)
 
       this.setState({ usernameHelperText: "" })
       this.props.onLogin(this.state.username);
