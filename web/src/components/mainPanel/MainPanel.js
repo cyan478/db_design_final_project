@@ -282,8 +282,24 @@ class MainPanel extends Component {
     super(props);
 
     this.state = {
-      percentages: 0
+      percentage: 0
     }
+  }
+
+  componentShouldUpdate(nextProps, nextState) {
+    if (this.state.percentage != nextState.percentage) {
+      return true;
+    }
+
+    if (this.props.selected != nextProps.selected) {
+      return true;
+    }
+
+    if (this.props.selectedAirline != nextProps.selectedAirline) {
+      return true;
+    }
+
+    return false;
   }
 
   async componentDidUpdate() {
