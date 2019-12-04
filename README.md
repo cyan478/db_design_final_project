@@ -17,8 +17,8 @@ and another for the React app
 cd server
 # log in the MySQL from terminal. This is how we did it:
 mysql -u root
-# import our dump file
-airVisuals < airVisuals_dump.sql
+# run our dump sql script
+source <ABSOLUTE PATH TO airVisuals_dump.sql FILE>
 ```
 
 ### Setting up and running Python3 backend dependencies:
