@@ -20,7 +20,7 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.substring(1);
 }
 
-function getPercentageForAirVisuals(selectedAirline){
+async function getPercentageForAirVisuals(selectedAirline){
   //backend -- make a call to the database to get the math based on the passed in selected airline
   
   // this call gets total number of reviews for an airline company
@@ -101,6 +101,7 @@ function renderAirVisualsInsights(selectedAirline) {
     <React.Fragment>
       {renderTitle(`${selectedAirline} Insights From This Site`)}
       {renderTitleText(`View the reviews our users have written about ${selectedAirline}'s customer and in-flight service, or contribute your own review! You can also view more insights compiled from other review sites (Facebook, Twitter, and TripAdvisor) in the side bar to the right.`)}
+      <React.Suspense>
       <TextPanel
         style={{
           flex: 1,
@@ -111,6 +112,7 @@ function renderAirVisualsInsights(selectedAirline) {
         boldedText={`${getPercentageForAirVisuals(selectedAirline)}%`} //LOOK AT LINE 27 TO CALL THE DATABASE
         bodyText={`of the ${selectedAirline} reviews on this site is comprised of AirVisuals reviews.`}
       />
+      </React.Suspense>
       <AddReviewPanel
         title={"Write your own review"}
         titleText={
@@ -147,6 +149,7 @@ function renderFacebookInsights(selectedAirline) {
         company={"alaska airlines"}
         sentiment={"positive"}
       /> */}
+      <React.Suspense>
       <TextPanel
         style={{
           flex: 1,
@@ -157,6 +160,7 @@ function renderFacebookInsights(selectedAirline) {
         boldedText={`${getPercentageForFacebook(selectedAirline)}%`} //LOOK AT LINE 27 TO CALL THE DATABASE
         bodyText={`of the ${selectedAirline} reviews on this site is comprised of AirVisuals reviews.`}
       />
+      </React.Suspense>
       <FilterPanel
         title={"Search Facebook comments"}
         titleText={
@@ -178,6 +182,7 @@ function renderTwitterInsights(selectedAirline) {
     <React.Fragment>
       {renderTitle(`${selectedAirline} Insights from Twitter`)}
       {renderTitleText(`View the most current trending words our customers are saying on Twitter about ${selectedAirline}'s customer and in-flight service.`)}
+      <React.Suspense>
       <TextPanel
         style={{
           flex: 1,
@@ -188,6 +193,7 @@ function renderTwitterInsights(selectedAirline) {
         boldedText={`${getPercentageForTwitter(selectedAirline)}%`} //LOOK AT LINE 27 TO CALL THE DATABASE
         bodyText={`of the ${selectedAirline} reviews on this site is comprised of AirVisuals reviews.`}
       />
+      </React.Suspense>
       <FilterPanel
         title={"Filter Twitter Comments"}
         titleText={
@@ -209,6 +215,7 @@ function renderTripAdvisorInsights(selectedAirline) {
     <React.Fragment>
       {renderTitle(`${selectedAirline} Insights from Trip Advisor`)}
       {renderTitleText(`View the most current trending words our customers are saying on Trip Advisor about ${selectedAirline}'s customer and in-flight service.`)}
+      <React.Suspense>
       <TextPanel
         style={{
           flex: 1,
@@ -219,6 +226,7 @@ function renderTripAdvisorInsights(selectedAirline) {
         boldedText={`${getPercentageForTripAdvisor(selectedAirline)}%`} //LOOK AT LINE 27 TO CALL THE DATABASE
         bodyText={`of the ${selectedAirline} reviews on this site is comprised of AirVisuals reviews.`}
       />
+      </React.Suspense>
       <FilterPanel
         title={"Filter Trip Advisor Reviews"}
         titleText={
@@ -257,17 +265,15 @@ function renderMyAccount() {
   );
 }
 
-function renderAccountSettings() {
+function renderAccountSettings(username) {
   return (
     <React.Fragment>
       {renderTitle("My Account Settings")}
       {renderTitleText("Modify any settings related to your personal account.")}
       <UpdatePasswordPanel
         title={"Update my password"}
-        titleText={
-          "Change the password to your account here."
-        }
-
+        titleText={"Change the password to your account here."}
+        username={username}
       />
     </React.Fragment>
   );
@@ -281,7 +287,8 @@ function renderTitleText(titleText) {
   return <div className='bigTitleText'>{titleText}</div>;
 }
 
-function renderCorrectPanel(selectedPanel, selectedAirline) {
+function renderCorrectPanel(props) {
+  const { selected: selectedPanel, selectedAirline, username } = props;
   if (selectedPanel === "general") {
     return renderGeneralInsights(selectedAirline);
   } else if (selectedPanel === "airvisuals") {
@@ -295,14 +302,18 @@ function renderCorrectPanel(selectedPanel, selectedAirline) {
   } else if (selectedPanel === "account") {
     return renderMyAccount();
   } else if (selectedPanel === "accountsettings") {
-    return renderAccountSettings();
+    return renderAccountSettings(username);
   } else {
     return <div>Still In Progress ... Come back another time</div>;
   }
 }
 
 function MainPanel(props) {
-  return <div className='mainPanel'>{renderCorrectPanel(props.selected, props.selectedAirline)}</div>;
+  return (
+    <div className='mainPanel'>
+      {renderCorrectPanel(props)}
+    </div>
+    );
 }
 
 export default MainPanel;

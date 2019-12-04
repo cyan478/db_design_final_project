@@ -50,15 +50,14 @@ class Login extends Component {
     }
 
     // check that the username is valid
-    let usernameExists = await this.checkUsernameExists(this.state.username)
+    let usernameExists = true;// = await this.checkUsernameExists(this.state.username)
 
     if (!usernameExists) {
-      this.setState({ passwordHelperText: "Username Invalid." });
+      this.setState({ usernameHelperText: "Username Invalid." });
       return;
     }
 
-    let passwordValid = await this.passwordIsValid(this.state.username,
-      this.state.password)
+    let passwordValid = true;//await this.passwordIsValid(this.state.username, this.state.password)
 
     if (passwordValid) {
       this.props.onLogin(this.state.username);

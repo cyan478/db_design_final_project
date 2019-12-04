@@ -41,6 +41,7 @@ class App extends Component {
           <MainPanel 
             selectedAirline={this.state.selectedAirline} 
             selected={this.state.selectedPanel} 
+            username={this.state.loggedInUser}
           />
         </React.Fragment>
       );

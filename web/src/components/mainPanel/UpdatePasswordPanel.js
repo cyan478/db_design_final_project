@@ -28,7 +28,7 @@ class UpdatePasswordPanel extends Component {
     } else {
       const data = {
         password: this.state.password,
-        username: 'TODO'
+        username: this.props.username
       };
   
       const otherParams = {
