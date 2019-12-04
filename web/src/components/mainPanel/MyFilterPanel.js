@@ -7,7 +7,7 @@ import Search from "@material-ui/icons/Search";
 import computedResults from "./test_reviews.json";
 const fetch = require("node-fetch");
 
-class FilterPanel extends Component {
+class MyFilterPanel extends Component {
   constructor(props) {
     super(props);
 

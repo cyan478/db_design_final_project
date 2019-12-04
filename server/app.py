@@ -243,7 +243,7 @@ def check_user():
       except pymysql.ProgrammingError as e:
          return None;
 
-# endpoint to get username from user table
+# endpoint to change password
 @app.route('/users/password', methods=['POST'])
 def change_password():
    username = request.json('username')

@@ -4,6 +4,5 @@ src/database_data
 # api key
 yhack_gcloud_apikey.json
 *.pyc
-*.txt
 /src/analysis/*.png
 /server/apikey.json
