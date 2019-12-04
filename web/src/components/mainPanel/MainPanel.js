@@ -18,6 +18,7 @@ import JustReviewsPanel from "./JustReviewsPanel";
 import TablePanel from "./TablePanel";
 import BarChart from "./BarChart";
 import UpdatePasswordPanel from "./UpdatePasswordPanel";
+import AddReviewPanel from "./AddReviewPanel";
 
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.substring(1);
@@ -62,6 +63,35 @@ function renderGeneralInsights(selectedAirline) {
         `View the most current trending words our customers are saying across social media about ${selectedAirline}’s customer and in-flight service.`
       )}
       <ToggleablePanel on={options.on} off={options.off} />
+    </React.Fragment>
+  );
+}
+
+function renderAirVisualsInsights(selectedAirline) {
+  selectedAirline = capitalize(selectedAirline);
+
+  return (
+    <React.Fragment>
+      {renderTitle(`${selectedAirline} Insights From This Site`)}
+      {renderTitleText(`View the reviews our users have written about ${selectedAirline}'s customer and in-flight service, or contribute your own review! You can also view more insights compiled from other review sites (Facebook, Twitter, and TripAdvisor) in the side bar to the right.`)}
+      <AddReviewPanel
+        title={"Write your own review"}
+        titleText={
+          `Have an experience to share with other users? Write your own review about ${selectedAirline} here! Any reviews you have written can be removed under My Account in the side panel to the right.`
+        }
+        review_site={"twitter"}
+        key={'twitter'}
+        tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
+      />
+      <FilterPanel
+        title={"Search Reviews Written by Other AirVisuals Users"}
+        titleText={
+          `Search or filter for a keyword to see what other users have written about ${selectedAirline} 2019.`
+        }
+        review_site={"facebook"}
+        key={'facebook'}
+        tags={["flight", "bag", "customer service", "class", "smiles"]}
+      />
     </React.Fragment>
   );
 }
@@ -186,6 +216,8 @@ function renderTitleText(titleText) {
 function renderCorrectPanel(selectedPanel, selectedAirline) {
   if (selectedPanel === "general") {
     return renderGeneralInsights(selectedAirline);
+  } else if (selectedPanel === "airvisuals") {
+    return renderAirVisualsInsights(selectedAirline);
   } else if (selectedPanel === "facebook") {
     return renderFacebookInsights(selectedAirline);
   } else if (selectedPanel === "twitter") {

@@ -40,6 +40,7 @@ class SidePanel extends Component {
     const reviewsTitle = "";
     const reviewsSelections = [
       { name: "general", label: "General"},
+      { name: "airvisuals", label: "AirVisuals" },
       { name: "facebook", label: "Facebook" },
       { name: "twitter", label: "Twitter" },
       { name: "tripadvisor", label: "Trip Advisor" }
