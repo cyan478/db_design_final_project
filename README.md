@@ -22,8 +22,11 @@ airVisuals < airVisuals_dump.sql
 ```
 
 ### Setting up and running Python3 backend dependencies:
-```sh
+```
 # starting from main project directory
+# setup NLP
+pip3 install google-cloud-language
+export GOOGLE_APPLICATION_CREDENTIALS="[ABSOLUTE_PATH_TO_API_KEY_JSON FILE]"
 cd server
 pip3 install -r requirements.txt
 # Flask backend
