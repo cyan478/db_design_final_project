@@ -10,6 +10,7 @@ import ToggleablePanel from "./ToggleablePanel";
 import TextPanel from "./TextPanel";
 import FilterPanel from "./FilterPanel";
 import TablePanel from "./TablePanel";
+import longStatsBGImage from "../../../public/images/long-stats.png";
 import MyFilterPanel from "./MyFilterPanel";
 import JustReviewsPanel from "./JustReviewsPanel";
 import UpdatePasswordPanel from "./UpdatePasswordPanel";
@@ -21,6 +22,17 @@ function capitalize(string) {
 
 function getPercentageForAirVisuals(selectedAirline){
   //backend -- make a call to the database to get the math based on the passed in selected airline
+  
+  // this call gets total number of reviews for an airline company
+  let url = "/reviews/statistics?company=" + encodeURIComponent(selectedAirline.trim())
+  // let reponse = await fetch(url)
+
+  // this call gets number of airvisual reviews
+  url += "&site=airvisuals"
+  // let reponse = await fetch(url)
+
+  // need to store the api results in these two variables
+  // return specific / total
   return 500;
 }
 
@@ -113,8 +125,8 @@ function renderAirVisualsInsights(selectedAirline) {
         titleText={
           `Search or filter for a keyword to see what other users have written about ${selectedAirline} 2019.`
         }
-        review_site={"facebook"}
-        key={'facebook'}
+        review_site={"airvisuals"}
+        key={'airvisuals'}
         tags={["flight", "bag", "customer service", "class", "smiles"]}
       />
     </React.Fragment>

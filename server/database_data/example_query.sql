@@ -31,3 +31,8 @@ from (select review_id
 left outer join keywords on keywords.review_id = t.review_id
 where keywords.sentiment > 0
 group by keyword;
+
+select count(*) as count
+from reviews
+where review_site_id = (select site_id from sites where lower(site_name) like 'facebook' limit 1)
+	and company_id = (select company_id from companies where lower(company_name) like 'alaska airlines' limit 1);

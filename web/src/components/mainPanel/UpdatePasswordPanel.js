@@ -26,6 +26,20 @@ class UpdatePasswordPanel extends Component {
     if (this.state.password !== this.state.verifyPW) {
       this.setState({ passwordHelperText: "Passwords must match." });
     } else {
+      const data = {
+        password: this.state.password,
+        username: 'TODO'
+      };
+  
+      const otherParams = {
+        headers: {'content-type':'application/json; charset=UTF-8'},
+        body: JSON.stringify(data),
+        method: 'POST'
+      };
+  
+      const url = '/users/password';
+      fetch(url, otherParams);
+      alert('Success!')
       this.setState({ passwordHelperText: "" });
     }
   }

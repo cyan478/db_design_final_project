@@ -50,13 +50,15 @@ def get_reviews():
       ' WHERE ' + company_filter + ' AND ' + site_filter + ';'
 
    with connection.cursor() as cur:
-      print("==============================\n{}".format(sql_query))
-      cur.execute(sql_query)
-      reviews = []
-      for review in cur.fetchall():
-         reviews.append(review)
-      print({'reviews': reviews})
-      return {'reviews': reviews}
+      try:
+         cur.execute(sql_query)
+         reviews = []
+         for review in cur.fetchall():
+            reviews.append(review)
+         return {'reviews': reviews}
+      except pymysql.ProgrammingError as e:
+         return None;
+
 
 # endpoint to insert rows into table
 @app.route('/reviews', methods=['POST'])
@@ -101,7 +103,6 @@ def insert_review():
 
    # insert review into reviews table
    with connection.cursor() as cur:
-      print(insert_statement)
       cur.execute(insert_statement)
       connection.commit()
       cur.execute(get_id_statement)
@@ -109,16 +110,19 @@ def insert_review():
 
       # insert keywords into keywords table
       entities = nlp_results['entities']
-      for entity in entities:
-         keyword = entity['value']
-         insert_statement = "INSERT INTO keywords (\
-            keyword,\
-            review_id,\
-            sentiment\
-         ) values (\'{}\',{},{:.2f})".format(keyword, review_id, review_sentiment)
-         cur.execute(insert_statement)
-      connection.commit()
-   return 'success'
+      try:
+         for entity in entities:
+            keyword = entity['value']
+            insert_statement = "INSERT INTO keywords (\
+               keyword,\
+               review_id,\
+               sentiment\
+            ) values (\'{}\',{},{:.2f})".format(keyword, review_id, review_sentiment)
+            cur.execute(insert_statement)
+         connection.commit()
+         return 'success'
+      except pymysql.ProgrammingError as e:
+         return None;
 
 # endpoint to get keywords from specific sites or companies
 @app.route('/keywords', methods=['GET'])
@@ -158,20 +162,47 @@ def get_keywords():
       'group by keyword;'
 
    with connection.cursor() as cur:
-      print("==============================\n{}".format(sql_query))
-      cur.execute(sql_query)
-      keywords = []
-      for keyword in cur.fetchall():
-         keywords.append(keyword)
-      print({'keywords': keywords})
-      return {'keywords': keywords}
+      try:
+         cur.execute(sql_query)
+         keywords = []
+         for keyword in cur.fetchall():
+            keywords.append(keyword)
+         return {'keywords': keywords}
+      except pymysql.ProgrammingError as e:
+         return None;
+
+# endpoint to GET specified reviews from reviews table
+@app.route('/reviews/statistics', methods=['GET'])
+def get_count():
+   site = request.args.get('site', default=None, type=str)
+   company = request.args.get('company', default=None, type=str)
+
+   site_filter = 'true'
+   company_filter = 'true'
+   if (site):
+      site_filter = 'review_site_id = (select site_id from sites \
+         where lower(site_name) like \'{}\' limit 1)'.format(site)
+   if (company):
+      company_filter = 'company_id = (select company_id from companies \
+         where lower(company_name) like \'{}\' limit 1)'.format(company)
+
+   sql_query = 'select count(*) as count from reviews where ' + \
+      site_filter + ' AND ' + company_filter + ";"
+
+   with connection.cursor() as cur:
+      try:
+         cur.execute(sql_query)
+         count = cur.fetchone()
+         print({'count': count})
+         return {'count': count}      
+      except pymysql.ProgrammingError as e:
+         return None;
 
 # ========================================================
 # user table
 # endpoint to create user account (insert into user table)
 @app.route('/users', methods=['POST'])
 def add_user():
-   print("============\n{}".format(request))
    username = request.json['username']
    password = request.json['password']
    first_name = request.json['firstname']
@@ -186,13 +217,16 @@ def add_user():
          user_lastname, \
          account_created) \
          VALUES (%s,%s,%s,%s,%s)"
-      cur.execute(sql,(username,\
-         password,\
-         first_name,\
-         last_name,\
-         date_created))
-      connection.commit()
-      return {'result': 'success'}
+      try:
+         cur.execute(sql,(username,\
+            password,\
+            first_name,\
+            last_name,\
+            date_created))
+         connection.commit()
+         return {'result': 'success'}
+      except pymysql.ProgrammingError as e:
+         return None;
 
 # endpoint to get username from user table
 @app.route('/users', methods=['GET'])
@@ -200,11 +234,31 @@ def check_user():
    username = request.args.get('username')
    with connection.cursor() as cur:
       sql = 'select * from users where username like %s'
-      cur.execute(sql,(username))
-      users = []
-      for user in cur.fetchall():
-         users.append(user)
-      return {'user_data': users} 
+      try:
+         cur.execute(sql,(username))
+         users = []
+         for user in cur.fetchall():
+            users.append(user)
+         return {'user_data': users} 
+      except pymysql.ProgrammingError as e:
+         return None;
+
+# endpoint to get username from user table
+@app.route('/users/password', methods=['POST'])
+def change_password():
+   username = request.json('username')
+   password = request.json('password')
+   with connection.cursor() as cur:
+      sql = 'update users\
+         set username = \'{}\', user_password = \'{}\'\
+         where username like \'{}\''.format(
+            username,password,username
+         )
+      try:
+         cur.execute(sql)
+         return 'Success!'
+      except pymysql.ProgrammingError as e:
+         return None;         
 
 if __name__ == '__main__':
    app.run(debug=True)

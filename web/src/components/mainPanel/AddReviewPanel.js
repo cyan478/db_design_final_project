@@ -46,7 +46,30 @@ class AddReviewPanel extends Component {
       this.setState({ addReviewHelperText: "You didn't write a review yet." });
       return;
     }
+    var today = new Date();
+    var date = today.getFullYear() + '-'
+           + ('0' + (today.getMonth()+1)).slice(-2) + '-'
+           + ('0' + (today.getDate())).slice(-2);
+
     // to do on the backend (add the review onto the database)
+    const data = {
+      poster_username: 'airVisualsUser',
+      company_name: 'JetBlue',
+      site_name: 'AirVisuals',
+      date: date,
+      content: this.state.text
+    };
+
+    const otherParams = {
+      headers: {'content-type':'application/json; charset=UTF-8'},
+      body: JSON.stringify(data),
+      method: 'POST'
+    };
+
+    const url = '/reviews';
+    console.log(otherParams)
+    fetch(url, otherParams);
+    alert('Success!')
 
     this.setState({
       textboxShown: false,
