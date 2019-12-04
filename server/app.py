@@ -193,16 +193,17 @@ def add_user():
       connection.commit()
       return 'success'                      
 
-# endpoint to delete user account (delete from user table)   
-@app.route('/users', methods=['DELETE'])
-def delete_user():
+# endpoint to get username from user table
+@app.route('/users', methods=['GET'])
+def check_user():
    username = request.args.get('username')
    with connection.cursor() as cur:
-      sql = 'DELETE FROM users WHERE username LIKE %s'
+      sql = 'select * from users where username like %s'
       cur.execute(sql,(username))
-      connection.commit()
-      return 'success'   
-
+      users = []
+      for user in cur.fetchall():
+         users.append(user)
+      return {'user_data': users} 
 
 if __name__ == '__main__':
    app.run(debug=True)

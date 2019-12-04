@@ -21,7 +21,23 @@ class Login extends Component {
     this.setState({ password: event.target.value, passwordHelperText: "" });
   }
 
-  handleLoginButtonClicked() {
+  async checkUsernameExists(username) {
+    var url = '/users?username=' + username;
+    let response = await fetch(url);
+    let data = await response.json();
+    
+    return data.user_data.length > 0;
+  }
+
+  async passwordIsValid(username, password) {
+    var url = '/users?username=' + username;
+    let response = await fetch(url);
+    let data = await response.json();
+    
+    return data.user_data[0]['user_password'] == password;
+  }
+
+  async handleLoginButtonClicked() {
     // check that username and password are there
     if (this.state.username === "") {
       this.setState({ usernameHelperText: "Username Required." });
@@ -34,17 +50,17 @@ class Login extends Component {
     }
 
     // check that the username is valid
-    const usernameValid = true;
+    let usernameExists = await this.checkUsernameExists(this.state.username)
 
-    if (!usernameValid) {
+    if (!usernameExists) {
       this.setState({ passwordHelperText: "Username Invalid." });
       return;
     }
 
-    // try to login.
-    const loginValid = true;
+    let passwordValid = await this.passwordIsValid(this.state.username,
+      this.state.password)
 
-    if (loginValid) {
+    if (passwordValid) {
       this.props.onLogin(this.state.username);
     } else {
       this.setState({ passwordHelperText: "Password Invalid." });
