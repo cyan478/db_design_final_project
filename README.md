@@ -1,15 +1,43 @@
-# db_design_final_project
+# Database Design Final Project
 
-project backend requirements: https://docs.google.com/document/d/1DOtUcqX2hHKw4i1Dx68XlpsfPP_Y7THNC4YG61XfZgs/edit
+## Dependencies
+- Languages/ Technologies
+  - Python 3
+  - MySQL
+  - NPM
+  
+NPM installation page: https://www.npmjs.com/get-npm
 
-project frontend requirements: https://docs.google.com/document/d/1LGPTxFPS-IW1I699sFSLOGMB1hVgHLCpJDOJ8O145tM/edit
+Note: You will need two terminal windows/instances: one for the Python3 Flask backend server,
+and another for the React app
 
-final report requirements: https://docs.google.com/document/d/1DOtUcqX2hHKw4i1Dx68XlpsfPP_Y7THNC4YG61XfZgs/edit
+### Setting up MySQL database
+```sh
+# starting from main project directory
+cd server
+# log in the MySQL from terminal. This is how we did it:
+mysql -u root
+# import our dump file
+airVisuals < airVisuals_dump.sql
+```
 
-BONUS POINTS: Complicated schema – user data pull requires multi-joins, or many tables (> 10 ) due to the complexity of the data domain (1-5 points)
+### Setting up and running Python3 backend dependencies:
+```sh
+# starting from main project directory
+cd server
+pip3 install -r requirements.txt
+# Flask backend
+python3 app.py
+```
 
-BONUS POINTS:  Identifying fields for secondary indexes. ( 1-5 points) Succinctly justify your index choice within code comments or as a separate section within your report..  
+### Starting up React App
+```sh
+# starting from main project directory
+cd server
+# this should install all dependencies in our package.json
+npm install
+# start the React App, which should open a tab in your browser
+npm start
+```
 
-BONUS POINTS: Difficult process for data extraction for the database, such as web scraping use of an API, etc. (1-5 points) 
-
-(Total bonus points that can be allotted for the project is 5 points)
+That should be all you need. If you run into any problems, please contact us at: aryton.a.hoi@gmail.com
