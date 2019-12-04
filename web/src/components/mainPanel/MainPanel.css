@@ -106,6 +106,7 @@
 }
 
 .imagePanel .titleText {
+	width: 90%;
 	font-family: SF-Pro-Bold;
 	font-size: 24px;
 	margin-top: 40px;
@@ -128,6 +129,7 @@
 }
 
 .filterPanel .header .title {
+	width: 90%;
 	font-family: SF-Pro-Bold;
 	font-size: 24px;
 	margin-top: 40px;
@@ -136,6 +138,7 @@
 }
 
 .filterPanel .header .titleText {
+	width: 90%;
 	font-family: SF-Pro-Regular;
 	font-size: 15px;
 	line-height: 1.4;
@@ -261,6 +264,7 @@
 }
 
 .justReviewsPanel .header .title {
+	width: 90%;
 	font-family: SF-Pro-Bold;
 	font-size: 24px;
 	margin-top: 40px;
@@ -269,6 +273,7 @@
 }
 
 .justReviewsPanel .header .titleText {
+	width: 90%;
 	font-family: SF-Pro-Regular;
 	font-size: 15px;
 	line-height: 1.4;
@@ -410,6 +415,7 @@
 }
 
 .updatePasswordPanel .header .title {
+	width: 90%;
 	font-family: SF-Pro-Bold;
 	font-size: 24px;
 	margin-top: 40px;
@@ -417,6 +423,7 @@
 	color: #01205B;
 }
 .updatePasswordPanel .header .titleText {
+	width: 90%;
 	font-family: SF-Pro-Regular;
 	font-size: 15px;
 	line-height: 1.4;
@@ -459,6 +466,101 @@
   border: 2px solid #01205B;
 }
 
+/*=================================*/
 
+
+.addReviewPanel {
+	padding-top: 6px;
+	padding-bottom: 36px;
+}
+
+.addReviewPanel .header {
+}
+
+.addReviewPanel .header .title {
+	width: 90%;
+	font-family: SF-Pro-Bold;
+	font-size: 24px;
+	margin-top: 40px;
+	margin-left: 30px;
+	color: #01205B;
+}
+
+.addReviewPanel .header .titleText {
+	width: 90%;
+	font-family: SF-Pro-Regular;
+	font-size: 15px;
+	line-height: 1.4;
+	margin-top: 10px;
+	margin-left: 30px;
+	margin-bottom: 22px;
+	color: #01205B;
+}
+
+.addReviewPanel .add-review-button {
+	margin-top: 16px;
+	margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: #01205B;
+  border: 2px solid #01205B;
+}
+
+.addReviewPanel .add-review-button:hover {
+	margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: #01205B;
+  color: white;
+  border: 2px solid #01205B;
+}
+
+.addReviewPanel .write-review-textfield {
+	margin-top: 16px;
+	margin-left: 30px;
+	margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 90%;
+}
+
+.addReviewPanel .submit-review-button {
+	margin-top: 16px;
+	margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: #01205B;
+  color: white;
+  border: 2px solid #01205B;
+}
+
+.addReviewPanel .submit-review-button:hover {
+	margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: #354E7D;
+  color: white;
+  border: 2px solid #354E7D;
+}
+
+.addReviewPanel .success-snackbar {
+	display: 'flex';
+	background-color: #43A047;
+	margin: auto;
+}
+
+.addReviewPanel .success-snackbar-line {
+	justify-content: space-around;
+	display: flex;
+	align-items: center;
+}
+
+
+.addReviewPanel .checkCircleIcon {
+	font-size: 20px;
+	margin-right: 16px;
+}
 
 

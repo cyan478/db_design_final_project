@@ -28,7 +28,6 @@
 
 .selectablePanel .header {
   font-family: SF-Pro-Bold;
-  margin-top: 18%;
   margin-bottom: 20px;
   margin-right: 30px;
 
@@ -60,6 +59,40 @@
   border-right: 5px solid #FF8900;
 }
 
+/*=================================*/
 
+.dropdownPanel .header {
+  font-family: SF-Pro-Medium;
+  color: white;
+  margin-top: 30px;
+  margin-right: 50px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.dropdownPanel .dropdown {
+  font-family: SF-Pro-Medium;
+  width: 190px;
+}
+
+.dropdownPanel .dropdown:hover {
+  background-color: white;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.dropdownPanel .dropdown:selected {
+  background-color: white;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.dropdownPanel .inner-dropdown {
+  background-color: white;
+  height: 50px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 20px;
+}
 
 

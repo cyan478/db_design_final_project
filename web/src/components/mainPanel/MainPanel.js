@@ -13,8 +13,15 @@ import TablePanel from "./TablePanel";
 import MyFilterPanel from "./MyFilterPanel";
 import JustReviewsPanel from "./JustReviewsPanel";
 import UpdatePasswordPanel from "./UpdatePasswordPanel";
+import AddReviewPanel from "./AddReviewPanel";
 
-function renderGeneralInsights() {
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.substring(1);
+}
+
+function renderGeneralInsights(selectedAirline) {
+  selectedAirline = capitalize(selectedAirline);
+
   const options = {
     on: {
       name: "Positive Reviews",
@@ -46,32 +53,39 @@ function renderGeneralInsights() {
 
   return (
     <React.Fragment>
-      {renderTitle("General Insights")}
+      {renderTitle(`General Insights for ${selectedAirline}`)}
       {renderTitleText(
-        "View the most current trending words our customers are saying across social media about JetBlue’s customer and in-flight service."
+        `View the most current trending words our customers are saying across social media about ${selectedAirline}’s customer and in-flight service.`
       )}
       <ToggleablePanel on={options.on} off={options.off} />
     </React.Fragment>
   );
 }
 
+<<<<<<< HEAD
 function renderFacebookInsights() {
   // get facebook keywords
-  
+=======
+function renderAirVisualsInsights(selectedAirline) {
+  selectedAirline = capitalize(selectedAirline);
+
   return (
     <React.Fragment>
-      {renderTitle("Reviews on Facebook")}
-      {renderTitleText("View the most current trending words our customers are saying on Facebook about JetBlue's customer and in-flight service.")}
-      {/* <BarChart
-        key={"alaska airlines", "facebook", "positive"}
-        review_site={"facebook"}
-        company={"alaska airlines"}
-        sentiment={"positive"}
-      /> */}
-      <FilterPanel
-        title={"Search Facebook comments"}
+      {renderTitle(`${selectedAirline} Insights From This Site`)}
+      {renderTitleText(`View the reviews our users have written about ${selectedAirline}'s customer and in-flight service, or contribute your own review! You can also view more insights compiled from other review sites (Facebook, Twitter, and TripAdvisor) in the side bar to the right.`)}
+      <AddReviewPanel
+        title={"Write your own review"}
         titleText={
-          "Search or filter for a keyword to see what customers are saying on JetBlue’s Facebook posts for 2019."
+          `Have an experience to share with other users? Write your own review about ${selectedAirline} here! Any reviews you have written can be removed under My Account in the side panel to the right.`
+        }
+        review_site={"twitter"}
+        key={'twitter'}
+        tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
+      />
+      <FilterPanel
+        title={"Search Reviews Written by Other AirVisuals Users"}
+        titleText={
+          `Search or filter for a keyword to see what other users have written about ${selectedAirline} 2019.`
         }
         review_site={"facebook"}
         key={'facebook'}
@@ -81,16 +95,45 @@ function renderFacebookInsights() {
   );
 }
 
-function renderTwitterInsights() {
-  console.log("twitter")
+function renderFacebookInsights(selectedAirline) {
+  selectedAirline = capitalize(selectedAirline);
+>>>>>>> f163df1cc7c37c9129e12267943f8ffa87751a12
+  
   return (
     <React.Fragment>
-      {renderTitle("Insights from Twitter")}
-      {renderTitleText("View the most current trending words our customers are saying on Twitter about JetBlue's customer and in-flight service.")}
+      {renderTitle(`${selectedAirline} Reviews on Facebook`)}
+      {renderTitleText(`View the most current trending words our customers are saying on Facebook about ${selectedAirline}'s customer and in-flight service.`)}
+      {/* <BarChart
+        key={"alaska airlines", "facebook", "positive"}
+        review_site={"facebook"}
+        company={"alaska airlines"}
+        sentiment={"positive"}
+      /> */}
+      <FilterPanel
+        title={"Search Facebook comments"}
+        titleText={
+          `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Facebook posts for 2019.`
+        }
+        review_site={"facebook"}
+        key={'facebook'}
+        tags={["flight", "bag", "customer service", "class", "smiles"]}
+      />
+    </React.Fragment>
+  );
+}
+
+function renderTwitterInsights(selectedAirline) {
+  // console.log("twitter")
+  selectedAirline = capitalize(selectedAirline);
+
+  return (
+    <React.Fragment>
+      {renderTitle(`${selectedAirline} Insights from Twitter`)}
+      {renderTitleText(`View the most current trending words our customers are saying on Twitter about ${selectedAirline}'s customer and in-flight service.`)}
       <FilterPanel
         title={"Filter Twitter Comments"}
         titleText={
-          "Search or filter for a keyword to see what customers are saying on JetBlue’s Twitter posts for 2019."
+          `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Twitter posts for 2019.`
         }
         review_site={"twitter"}
         key={'twitter'}
@@ -100,16 +143,18 @@ function renderTwitterInsights() {
   );
 }
 
-function renderTripAdvisorInsights() {
+function renderTripAdvisorInsights(selectedAirline) {
   console.log("trip")
+  selectedAirline = capitalize(selectedAirline);
+
   return (
     <React.Fragment>
-      {renderTitle("Insights from Trip Advisor")}
-      {renderTitleText("View the most current trending words our customers are saying on Trip Advisor about JetBlue's customer and in-flight service.")}
+      {renderTitle(`${selectedAirline} Insights from Trip Advisor`)}
+      {renderTitleText(`View the most current trending words our customers are saying on Trip Advisor about ${selectedAirline}'s customer and in-flight service.`)}
       <FilterPanel
         title={"Filter Trip Advisor Reviews"}
         titleText={
-          "Search or filter for a keyword to see what customers are saying on JetBlue’s Trip Advisor page."
+          `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Trip Advisor page.`
         }
         review_site={"tripadvisor"}
         key={'tripadvisor'}
@@ -168,15 +213,23 @@ function renderTitleText(titleText) {
   return <div className='bigTitleText'>{titleText}</div>;
 }
 
+<<<<<<< HEAD
 function renderCorrectPanel(selectedPanel) {
   if (selectedPanel === "general-insights") {
     return renderGeneralInsights();
+=======
+function renderCorrectPanel(selectedPanel, selectedAirline) {
+  if (selectedPanel === "general") {
+    return renderGeneralInsights(selectedAirline);
+  } else if (selectedPanel === "airvisuals") {
+    return renderAirVisualsInsights(selectedAirline);
+>>>>>>> f163df1cc7c37c9129e12267943f8ffa87751a12
   } else if (selectedPanel === "facebook") {
-    return renderFacebookInsights();
+    return renderFacebookInsights(selectedAirline);
   } else if (selectedPanel === "twitter") {
-    return renderTwitterInsights();
+    return renderTwitterInsights(selectedAirline);
   } else if (selectedPanel === "tripadvisor") {
-    return renderTripAdvisorInsights();
+    return renderTripAdvisorInsights(selectedAirline);
   } else if (selectedPanel === "account") {
     return renderMyAccount();
   } else if (selectedPanel === "accountsettings") {
@@ -187,7 +240,7 @@ function renderCorrectPanel(selectedPanel) {
 }
 
 function MainPanel(props) {
-  return <div className='mainPanel'>{renderCorrectPanel(props.selected)}</div>;
+  return <div className='mainPanel'>{renderCorrectPanel(props.selected, props.selectedAirline)}</div>;
 }
 
 export default MainPanel;

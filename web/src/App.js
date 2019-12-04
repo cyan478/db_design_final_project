@@ -10,7 +10,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedPanel: "general-insights",
+      selectedAirline: "jetblue",
+      selectedPanel: "general",
       loggedInUser: undefined
     };
   }
@@ -23,15 +24,24 @@ class App extends Component {
     this.setState({ loggedInUser });
   }
 
+  onDropdownSelect(selectedAirline) {
+    this.setState({ selectedAirline });
+  }
+
   renderPage() {
     if (this.state.loggedInUser) {
       return (
         <React.Fragment>
           <SidePanel
+            selectedAirline={this.state.selectedAirline}
+            onDropdownSelect={this.onDropdownSelect.bind(this)}
             selected={this.state.selectedPanel}
             onPanelSelect={this.onPanelSelect.bind(this)}
           />
-          <MainPanel selected={this.state.selectedPanel} />
+          <MainPanel 
+            selectedAirline={this.state.selectedAirline} 
+            selected={this.state.selectedPanel} 
+          />
         </React.Fragment>
       );
     } else {
