@@ -53,6 +53,18 @@
 	margin-bottom: 8px;
 }
 
+.loginPanel .firstName-header {
+	font-family: SF-Pro-Medium;
+	color: #01205B;
+	margin-bottom: 8px;
+}
+
+.loginPanel .lastName-header {
+	font-family: SF-Pro-Medium;
+	color: #01205B;
+	margin-bottom: 8px;
+}
+
 .loginPanel .password-header {
 	font-family: SF-Pro-Medium;
 	color: #01205B;

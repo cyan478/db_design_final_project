@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-const url = 'http://127.0.0.1:5000/keywords?site=facebook&company=alaska%20airlines&sentiment=positive';
+const url = 'http://127.0.0.1:5000/users?username=ahoi';
 // const data = {
 //   site: "facebook",
 //   company: " alaska airlines"
@@ -14,5 +14,5 @@ const url = 'http://127.0.0.1:5000/keywords?site=facebook&company=alaska%20airli
 
 fetch(url)
 .then(res => res.json())
-.then(data => console.log(data.keywords))
+.then(data => console.log(data.user_data[0]['user_password']))
 .catch(error => console.log(error));

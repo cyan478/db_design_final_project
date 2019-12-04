@@ -6,17 +6,12 @@ import positiveCloudImage from "../../../public/images/positive-cloud.png";
 import negativeGraphImage from "../../../public/images/negative-graph.png";
 import negativeCloudImage from "../../../public/images/negative-cloud.png";
 
-import shortLineStatsBGImage from "../../../public/images/short-line-stats.png";
-import shortBarStatsBGImage from "../../../public/images/short-bar-stats.png";
-import longStatsBGImage from "../../../public/images/long-stats.png";
-
 import ToggleablePanel from "./ToggleablePanel";
 import TextPanel from "./TextPanel";
 import FilterPanel from "./FilterPanel";
+import TablePanel from "./TablePanel";
 import MyFilterPanel from "./MyFilterPanel";
 import JustReviewsPanel from "./JustReviewsPanel";
-import TablePanel from "./TablePanel";
-import BarChart from "./BarChart";
 import UpdatePasswordPanel from "./UpdatePasswordPanel";
 import AddReviewPanel from "./AddReviewPanel";
 
@@ -87,6 +82,10 @@ function renderGeneralInsights(selectedAirline) {
   );
 }
 
+<<<<<<< HEAD
+function renderFacebookInsights() {
+  // get facebook keywords
+=======
 function renderAirVisualsInsights(selectedAirline) {
   selectedAirline = capitalize(selectedAirline);
 
@@ -129,6 +128,7 @@ function renderAirVisualsInsights(selectedAirline) {
 
 function renderFacebookInsights(selectedAirline) {
   selectedAirline = capitalize(selectedAirline);
+>>>>>>> f163df1cc7c37c9129e12267943f8ffa87751a12
   
   return (
     <React.Fragment>
@@ -274,11 +274,17 @@ function renderTitleText(titleText) {
   return <div className='bigTitleText'>{titleText}</div>;
 }
 
+<<<<<<< HEAD
+function renderCorrectPanel(selectedPanel) {
+  if (selectedPanel === "general-insights") {
+    return renderGeneralInsights();
+=======
 function renderCorrectPanel(selectedPanel, selectedAirline) {
   if (selectedPanel === "general") {
     return renderGeneralInsights(selectedAirline);
   } else if (selectedPanel === "airvisuals") {
     return renderAirVisualsInsights(selectedAirline);
+>>>>>>> f163df1cc7c37c9129e12267943f8ffa87751a12
   } else if (selectedPanel === "facebook") {
     return renderFacebookInsights(selectedAirline);
   } else if (selectedPanel === "twitter") {
