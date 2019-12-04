@@ -57,7 +57,6 @@ class AddReviewPanel extends Component {
   }
 
 
-
   renderBody(){
     if (this.state.textboxShown == false) {
       return(

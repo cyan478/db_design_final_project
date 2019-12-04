@@ -24,6 +24,26 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.substring(1);
 }
 
+function getPercentageForAirVisuals(selectedAirline){
+  //backend -- make a call to the database to get the math based on the passed in selected airline
+  return 500;
+}
+
+function getPercentageForFacebook(selectedAirline){
+  //backend -- make a call to the database to get the math based on the passed in selected airline
+  return 500;
+}
+
+function getPercentageForTwitter(selectedAirline){
+  //backend -- make a call to the database to get the math based on the passed in selected airline
+  return 500;
+}
+
+function getPercentageForTripAdvisor(selectedAirline){
+  //backend -- make a call to the database to get the math based on the passed in selected airline
+  return 500;
+}
+
 function renderGeneralInsights(selectedAirline) {
   selectedAirline = capitalize(selectedAirline);
 
@@ -74,6 +94,16 @@ function renderAirVisualsInsights(selectedAirline) {
     <React.Fragment>
       {renderTitle(`${selectedAirline} Insights From This Site`)}
       {renderTitleText(`View the reviews our users have written about ${selectedAirline}'s customer and in-flight service, or contribute your own review! You can also view more insights compiled from other review sites (Facebook, Twitter, and TripAdvisor) in the side bar to the right.`)}
+      <TextPanel
+        style={{
+          flex: 1,
+          backgroundImage: `url(${longStatsBGImage})`,
+          backgroundSize: "110%",
+          height: "240px"
+        }}
+        boldedText={`${getPercentageForAirVisuals(selectedAirline)}%`} //LOOK AT LINE 27 TO CALL THE DATABASE
+        bodyText={`of the ${selectedAirline} reviews on this site is comprised of AirVisuals reviews.`}
+      />
       <AddReviewPanel
         title={"Write your own review"}
         titleText={
@@ -96,6 +126,7 @@ function renderAirVisualsInsights(selectedAirline) {
   );
 }
 
+
 function renderFacebookInsights(selectedAirline) {
   selectedAirline = capitalize(selectedAirline);
   
@@ -109,6 +140,16 @@ function renderFacebookInsights(selectedAirline) {
         company={"alaska airlines"}
         sentiment={"positive"}
       /> */}
+      <TextPanel
+        style={{
+          flex: 1,
+          backgroundImage: `url(${longStatsBGImage})`,
+          backgroundSize: "110%",
+          height: "240px"
+        }}
+        boldedText={`${getPercentageForFacebook(selectedAirline)}%`} //LOOK AT LINE 27 TO CALL THE DATABASE
+        bodyText={`of the ${selectedAirline} reviews on this site is comprised of AirVisuals reviews.`}
+      />
       <FilterPanel
         title={"Search Facebook comments"}
         titleText={
@@ -130,6 +171,16 @@ function renderTwitterInsights(selectedAirline) {
     <React.Fragment>
       {renderTitle(`${selectedAirline} Insights from Twitter`)}
       {renderTitleText(`View the most current trending words our customers are saying on Twitter about ${selectedAirline}'s customer and in-flight service.`)}
+      <TextPanel
+        style={{
+          flex: 1,
+          backgroundImage: `url(${longStatsBGImage})`,
+          backgroundSize: "110%",
+          height: "240px"
+        }}
+        boldedText={`${getPercentageForTwitter(selectedAirline)}%`} //LOOK AT LINE 27 TO CALL THE DATABASE
+        bodyText={`of the ${selectedAirline} reviews on this site is comprised of AirVisuals reviews.`}
+      />
       <FilterPanel
         title={"Filter Twitter Comments"}
         titleText={
@@ -151,6 +202,16 @@ function renderTripAdvisorInsights(selectedAirline) {
     <React.Fragment>
       {renderTitle(`${selectedAirline} Insights from Trip Advisor`)}
       {renderTitleText(`View the most current trending words our customers are saying on Trip Advisor about ${selectedAirline}'s customer and in-flight service.`)}
+      <TextPanel
+        style={{
+          flex: 1,
+          backgroundImage: `url(${longStatsBGImage})`,
+          backgroundSize: "110%",
+          height: "240px"
+        }}
+        boldedText={`${getPercentageForTripAdvisor(selectedAirline)}%`} //LOOK AT LINE 27 TO CALL THE DATABASE
+        bodyText={`of the ${selectedAirline} reviews on this site is comprised of AirVisuals reviews.`}
+      />
       <FilterPanel
         title={"Filter Trip Advisor Reviews"}
         titleText={
