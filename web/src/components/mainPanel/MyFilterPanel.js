@@ -88,9 +88,23 @@ class MyFilterPanel extends Component {
     this.setState({ viewingSize: newSize });
   }
 
+  onRemoveReview(username, review_id) {
+    console.log("deleeting some stuff");
+    const url = "/reviews/delete"
+    const data = { username: username, 
+      review_id: review_id }
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': "application/json" }
+    }).then(() => {
+      this.applyFilter(this.state.filter);
+    })
+  }
+
   render() {
     return (
-      <Card className='filterPanel'>
+      <Card className='myfilterPanel'>
         <div className='header'>
           <div className='title'>{this.props.title}</div>
           <div className='titleText'>{this.props.titleText}</div>
@@ -135,7 +149,7 @@ class MyFilterPanel extends Component {
         <div className='results'>
           {this.state.results.slice(0, this.state.viewingSize).map(result => {
             return (
-              <div className="resultRow">
+              <div className="resultRow" key={result.review_id}>
               <div className={`singleResult ${result.review_sentiment}`}>
                 <div className='resultHeader'>{result.poster_username}</div>
                 <div className='resultContent'>{result.review_content}</div>
@@ -144,7 +158,9 @@ class MyFilterPanel extends Component {
                <Button
                 className='removeButton'
                 variant='outlined'
-                onClick={() => {}}>
+                onClick={() => {
+                  this.onRemoveReview.call(this, this.props.username, result.review_id)
+                }}>
                 Remove
               </Button>
               </div>

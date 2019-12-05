@@ -117,13 +117,14 @@ function renderAirVisualsInsights(selectedAirline, percentage, username) {
         review_site={"airvisuals"}
         key={'airvisuals'}
         tags={["flight", "bag", "customer service", "class", "smiles"]}
+        username={username}
       />
     </React.Fragment>
   );
 }
 
 
-function renderFacebookInsights(selectedAirline, percentage) {
+function renderFacebookInsights(selectedAirline, percentage, username) {
   selectedAirline = capitalize(selectedAirline);
   
   return (
@@ -155,12 +156,13 @@ function renderFacebookInsights(selectedAirline, percentage) {
         review_site={"facebook"}
         key={'facebook'}
         tags={["flight", "bag", "customer service", "class", "smiles"]}
+        username={username}
       />
     </React.Fragment>
   );
 }
 
-function renderTwitterInsights(selectedAirline, percentage) {
+function renderTwitterInsights(selectedAirline, percentage, username) {
   // console.log("twitter")
   selectedAirline = capitalize(selectedAirline);
 
@@ -187,12 +189,13 @@ function renderTwitterInsights(selectedAirline, percentage) {
         review_site={"twitter"}
         key={'twitter'}
         tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
+        username={username}
       />
     </React.Fragment>
   );
 }
 
-function renderTripAdvisorInsights(selectedAirline, percentage) {
+function renderTripAdvisorInsights(selectedAirline, percentage, username) {
   console.log("trip")
   selectedAirline = capitalize(selectedAirline);
 
@@ -219,6 +222,7 @@ function renderTripAdvisorInsights(selectedAirline, percentage) {
         selectedAirline={selectedAirline}
         key={'tripadvisor'}
         tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
+        username={username}
       />
     </React.Fragment>
   );
@@ -237,6 +241,7 @@ function renderMyAccount(username) {
           "Search or filter a specific airline to find specific reviews you've saved. You can also remove saved reviews from your list."
         }
         sourceFilter={"facebook"} //uh what
+        username={username}
         tags={["JetBlue Airways", "Alaska Airlines", "Delta Air Lines"]}
       />
 
@@ -280,11 +285,11 @@ function renderCorrectPanel(props) {
   } else if (selectedPanel === "airvisuals") {
     return renderAirVisualsInsights(selectedAirline, percentage, username);
   } else if (selectedPanel === "facebook") {
-    return renderFacebookInsights(selectedAirline, percentage);
+    return renderFacebookInsights(selectedAirline, percentage, username);
   } else if (selectedPanel === "twitter") {
-    return renderTwitterInsights(selectedAirline, percentage);
+    return renderTwitterInsights(selectedAirline, percentage, username);
   } else if (selectedPanel === "tripadvisor") {
-    return renderTripAdvisorInsights(selectedAirline, percentage);
+    return renderTripAdvisorInsights(selectedAirline, percentage, username);
   } else if (selectedPanel === "account") {
     return renderMyAccount(username);
   } else if (selectedPanel === "accountsettings") {
