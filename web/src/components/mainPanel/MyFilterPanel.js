@@ -179,4 +179,4 @@ class MyFilterPanel extends Component {
   }
 }
 
-export default FilterPanel;
+export default MyFilterPanel;

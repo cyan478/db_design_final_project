@@ -32,7 +32,7 @@ left outer join keywords on keywords.review_id = t.review_id
 where keywords.sentiment > 0
 group by keyword;
 
-select count(*) as count
-from reviews
-where review_site_id = (select site_id from sites where lower(site_name) like 'facebook' limit 1)
-	and company_id = (select company_id from companies where lower(company_name) like 'alaska airlines' limit 1);
+insert into sites(site_name,site_url) values ('AirVisuals','www.airvisuals.com');
+use airVisuals;
+delete from reviews where review_id = 6;
+update users         set user_password = 'pw'         where username like 'ahoi';

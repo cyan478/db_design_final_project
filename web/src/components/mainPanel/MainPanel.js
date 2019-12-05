@@ -21,11 +21,21 @@ function capitalize(string) {
 }
 
 async function getPercentage(selectedAirline, company){
+  console.log("Trying to get stats from " + selectedAirline + " and " + company)
   let url = "/reviews/statistics?company=" + encodeURIComponent(selectedAirline.trim())
-  url += `&site=${company}`
   let response = await fetch(url);
-  let { data } = await response.json();
-  return `${data}%`;
+  let data = await response.json();
+  let total = data.count.count;
+  if (total < 1) {
+    total = 1;
+  }
+  
+  url += `&site=${company}`
+  response = await fetch(url);
+  data = await response.json();
+  let specific = data.count.count;
+
+  return `${specific / total}%`;
 }
 
 function renderGeneralInsights(selectedAirline) {

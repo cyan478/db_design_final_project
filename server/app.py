@@ -55,8 +55,10 @@ def get_reviews():
          reviews = []
          for review in cur.fetchall():
             reviews.append(review)
+         cur.close()
          return {'reviews': reviews}
       except pymysql.ProgrammingError as e:
+         cur.close()
          return None;
 
 
@@ -120,8 +122,10 @@ def insert_review():
             ) values (\'{}\',{},{:.2f})".format(keyword, review_id, review_sentiment)
             cur.execute(insert_statement)
          connection.commit()
+         cur.close()
          return 'success'
       except pymysql.ProgrammingError as e:
+         cur.close()
          return None;
 
 # endpoint to get keywords from specific sites or companies
@@ -167,8 +171,10 @@ def get_keywords():
          keywords = []
          for keyword in cur.fetchall():
             keywords.append(keyword)
+         cur.close()
          return {'keywords': keywords}
       except pymysql.ProgrammingError as e:
+         cur.close()
          return None;
 
 # endpoint to GET specified reviews from reviews table
@@ -191,11 +197,14 @@ def get_count():
 
    with connection.cursor() as cur:
       try:
+         print("=====================\n{}".format(sql_query))
          cur.execute(sql_query)
          count = cur.fetchone()
          print({'count': count})
+         cur.close()
          return {'count': count}      
       except pymysql.ProgrammingError as e:
+         cur.close()
          return None;
 
 # ========================================================
@@ -224,8 +233,10 @@ def add_user():
             last_name,\
             date_created))
          connection.commit()
+         cur.close()
          return {'result': 'success'}
       except pymysql.ProgrammingError as e:
+         cur.close()
          return None;
 
 # endpoint to get username from user table
@@ -239,25 +250,31 @@ def check_user():
          users = []
          for user in cur.fetchall():
             users.append(user)
+         cur.close()
          return {'user_data': users} 
       except pymysql.ProgrammingError as e:
+         cur.close()
          return None;
 
 # endpoint to change password
 @app.route('/users/password', methods=['POST'])
 def change_password():
-   username = request.json('username')
-   password = request.json('password')
+   username = request.json['username']
+   password = request.json['password']
    with connection.cursor() as cur:
       sql = 'update users\
-         set username = \'{}\', user_password = \'{}\'\
-         where username like \'{}\''.format(
-            username,password,username
+         set user_password = \'{}\'\
+         where username like \'{}\';'.format(
+            password,username
          )
+      print("===============\n{}".format(sql))
       try:
          cur.execute(sql)
+         connection.commit()
+         cur.close()
          return 'Success!'
       except pymysql.ProgrammingError as e:
+         cur.close()
          return None;         
 
 if __name__ == '__main__':

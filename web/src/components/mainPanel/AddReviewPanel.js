@@ -69,7 +69,6 @@ class AddReviewPanel extends Component {
     const url = '/reviews';
     console.log(otherParams)
     fetch(url, otherParams);
-    alert('Success!')
 
     this.setState({
       textboxShown: false,
