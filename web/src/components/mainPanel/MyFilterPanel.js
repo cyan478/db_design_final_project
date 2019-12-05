@@ -102,7 +102,6 @@ class MyFilterPanel extends Component {
   }
 
   render() {
-    return <div>Hello</div>;
     return (
       <Card className='filterPanel'>
         <div className='header'>

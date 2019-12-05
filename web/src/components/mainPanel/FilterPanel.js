@@ -104,6 +104,11 @@ class FilterPanel extends Component {
         </div>
         <div className='results'>
           {this.state.results.slice(0, this.state.viewingSize).map(result => {
+            if (result.review_sentiment < -0.1) {
+              result.review_sentiment = 'negative'
+            } else if (result.review_sentiment > 0.1) {
+              result.review_sentiment = 'positive'
+            }
             return (
               <div className={`singleResult ${result.review_sentiment}`} key={result.review_id}>
                 <div className='resultHeader'>{result.poster_username}</div>
