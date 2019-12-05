@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import "./MainPanel.css";
 
-import positiveGraphImage from "../../../public/images/positive-graph.png";
-import positiveCloudImage from "../../../public/images/positive-cloud.png";
-import negativeGraphImage from "../../../public/images/negative-graph.png";
-import negativeCloudImage from "../../../public/images/negative-cloud.png";
-
-import ToggleablePanel from "./ToggleablePanel";
 import TextPanel from "./TextPanel";
 import FilterPanel from "./FilterPanel";
-import TablePanel from "./TablePanel";
 import longStatsBGImage from "../../../public/images/long-stats.png";
 import MyFilterPanel from "./MyFilterPanel";
 import JustReviewsPanel from "./JustReviewsPanel";
@@ -35,50 +28,8 @@ async function getPercentage(selectedAirline, company){
   data = await response.json();
   let specific = data.count.count;
 
-  return `${specific / total}%`;
-}
-
-function renderGeneralInsights(selectedAirline) {
-  selectedAirline = capitalize(selectedAirline);
-
-  const options = {
-    on: {
-      name: "Positive Reviews",
-      render: () => (
-        <React.Fragment>
-          <img
-            style={{ width: "100%", marginBottom: "20px" }}
-            src={positiveGraphImage}></img>
-          <div style={{ width: "75%", margin: "auto" }}>
-            <img style={{ width: "100%" }} src={positiveCloudImage}></img>
-          </div>
-        </React.Fragment>
-      )
-    },
-    off: {
-      name: "Negative Reviews",
-      render: () => (
-        <React.Fragment>
-          <img
-            style={{ width: "100%", marginBottom: "20px" }}
-            src={negativeGraphImage}></img>
-          <div style={{ width: "75%", margin: "auto" }}>
-            <img style={{ width: "100%" }} src={negativeCloudImage}></img>
-          </div>
-        </React.Fragment>
-      )
-    }
-  };
-
-  return (
-    <React.Fragment>
-      {renderTitle(`General Insights for ${selectedAirline}`)}
-      {renderTitleText(
-        `View the most current trending words our customers are saying across social media about ${selectedAirline}’s customer and in-flight service.`
-      )}
-      <ToggleablePanel on={options.on} off={options.off} />
-    </React.Fragment>
-  );
+  let percentage = (specific / total) * 100
+  return `${percentage.toFixed(2)}%`;
 }
 
 function renderAirVisualsInsights(selectedAirline, percentage, username) {
@@ -103,6 +54,7 @@ function renderAirVisualsInsights(selectedAirline, percentage, username) {
         titleText={
           `Have an experience to share with other users? Write your own review about ${selectedAirline} here! Any reviews you have written can be removed under My Account in the side panel to the right.`
         }
+        selectedAirline={selectedAirline}
         review_site={"twitter"}
         username={username}
         key={'twitter'}
@@ -280,9 +232,7 @@ function renderTitleText(titleText) {
 
 function renderCorrectPanel(props) {
   const { selected: selectedPanel, selectedAirline, username, percentage } = props;
-  if (selectedPanel === "general") {
-    return renderGeneralInsights(selectedAirline);
-  } else if (selectedPanel === "airvisuals") {
+  if (selectedPanel === "airvisuals") {
     return renderAirVisualsInsights(selectedAirline, percentage, username);
   } else if (selectedPanel === "facebook") {
     return renderFacebookInsights(selectedAirline, percentage, username);
