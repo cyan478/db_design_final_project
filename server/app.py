@@ -27,6 +27,7 @@ def get_reviews():
    site = request.args.get('site', default=None, type=str)
    company = request.args.get('company', default=None, type=str)
    keyword = request.args.get('keyword', default=None, type=str)
+   poster = request.args.get('poster', default=None, type=str)
 
    selections = 'select t.review_id,\
       t.poster_username,\
@@ -55,6 +56,10 @@ def get_reviews():
       ' FROM ' + table_source + ' AS t ' \
       ' WHERE ' + company_filter + ' AND ' + site_filter + ';'
 
+   if poster:
+      sql_query = 'select * from reviews \
+         where poster_username like \'{}\''.format(poster)
+
    with connection.cursor() as cur:
       try:
          print("============\n{}".format(sql_query))
@@ -64,6 +69,7 @@ def get_reviews():
             reviews.append(review)
          cur.close()
          connection.close()
+         print(reviews)
          return {'reviews': reviews}
       except pymysql.ProgrammingError as e:
          cur.close()
