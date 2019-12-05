@@ -21,26 +21,26 @@ class MyFilterPanel extends Component {
   }
 
   componentDidMount() {
-    // fetch data and update state
-    const url = '/reviews?site=facebook&company=alaska%20airlines ';
-    // const data = {
-    //   site: "facebook",
-    //   company: " alaska airlines"
-    // };
+    // // fetch data and update state
+    // const url = '/reviews?site=facebook&company=alaska%20airlines ';
+    // // const data = {
+    // //   site: "facebook",
+    // //   company: " alaska airlines"
+    // // };
     
-    // const otherParams = {
-    //   headers: {'content-type':'application/json; charset=UTF-8'},
-    //   body: data,
-    //   method: 'GET'
-    // };
+    // // const otherParams = {
+    // //   headers: {'content-type':'application/json; charset=UTF-8'},
+    // //   body: data,
+    // //   method: 'GET'
+    // // };
 
-    fetch(url)
-    .then(res => res.json())
-    .then((data) => {
-      console.log(data);
-      this.setState({results: data.reviews})
-    })
-    .catch(error => console.log(error));
+    // fetch(url)
+    // .then(res => res.json())
+    // .then((data) => {
+    //   console.log(data);
+    //   this.setState({results: data.reviews})
+    // })
+    // .catch(error => console.log(error));
   }
 
   sourceFilter(results) {
@@ -104,10 +104,22 @@ class MyFilterPanel extends Component {
     this.setState({ results: this.filter(computedResults.results, filter) });
   }
 
+  onRemoveReview(username, review_id) {
+    console.log("deleeting some stuff");
+    const url = "/reviews/delete"
+    const data = { username, review_id }
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': "application/json" }
+    }).then(() => {
+      this.applyFilter(this.state.filter);
+    })
+  }
+
   render() {
-    return <div>Hello</div>;
     return (
-      <Card className='filterPanel'>
+      <Card className='myfilterPanel'>
         <div className='header'>
           <div className='title'>{this.props.title}</div>
           <div className='titleText'>{this.props.titleText}</div>
@@ -152,7 +164,7 @@ class MyFilterPanel extends Component {
         <div className='results'>
           {this.state.results.slice(0, this.state.viewingSize).map(result => {
             return (
-              <div className="resultRow">
+              <div className="resultRow" key={result.review_id}>
               <div className={`singleResult ${result.review_sentiment}`}>
                 <div className='resultHeader'>{result.poster_username}</div>
                 <div className='resultContent'>{result.review_content}</div>
@@ -161,7 +173,9 @@ class MyFilterPanel extends Component {
                <Button
                 className='removeButton'
                 variant='outlined'
-                onClick={() => {}}>
+                onClick={() => {
+                  this.onRemoveReview.call(this, this.props.username, result.review_id)
+                }}>
                 Remove
               </Button>
               </div>

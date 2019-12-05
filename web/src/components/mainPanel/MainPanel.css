@@ -245,21 +245,140 @@
   	border: 2px solid #43A047;
 }
 
-/*.filterPanel .results .removeButtonLocation {
+.seeMore {
+	font-family: SF-Pro-Medium;
+	margin-top: 40px;
+	padding-bottom: 40px;
+	text-align: center;
+	color: #646464;
+	cursor: pointer;
+}
+
+/*=================================*/
+
+.myfilterPanel {
+	/*display: flex;*/
+	padding-top: 6px;
+}
+
+.myfilterPanel .header {
+}
+
+.myfilterPanel .header .title {
+	width: 90%;
+	font-family: SF-Pro-Bold;
+	font-size: 24px;
+	margin-top: 40px;
+	margin-left: 30px;
+	color: #01205B;
+}
+
+.myfilterPanel .header .titleText {
+	width: 90%;
+	font-family: SF-Pro-Regular;
+	font-size: 15px;
+	line-height: 1.4;
+	margin-top: 10px;
+	margin-left: 30px;
+	color: #01205B;
+}
+
+.myfilterPanel .search {
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+.myfilterPanel .search .searchInput {
+
+}
+
+.myfilterPanel .terms {
+	display: flex;
+	margin-top: 20px;
+	margin-left: 30px;
+	margin-bottom: 36px;
+}
+
+.myfilterPanel .terms .searchTerm {
+	font-family: SF-Pro-Regular;
+	margin-right: 12px;
+	padding: 4px 20px;
+	border: 1.5px solid #979797;
+	border-radius: 20px;
+	color: #979797;
+	cursor: pointer;
+}
+
+.myfilterPanel .terms .searchTerm.selected {
+	font-family: SF-Pro-Medium;
+	background-color: #01205B;
+	border: 1.5px solid #01205B;
+	color: white;
+}
+
+.myfilterPanel .results {
+	font-family: SF-Pro-Regular;
+	color: #01205B;
+	margin-left: 30px;
+	margin-right: 30px;
+	margin-bottom: 40px;
+}
+
+.myfilterPanel .results .singleResult {
+	margin-top: 20px;
+	padding: 26px;
+	/*border: 1.5px solid #979797;*/
+	border-radius: 16px;
+	/*background-color: blue;*/
+	background-color: #F5FAFE;
+}
+
+.myfilterPanel .results .resultRow {
+	display: flex;
+  	justify-content: space-between;
+}
+
+.myfilterPanel .results .singleResult {
+	margin-top: 20px;
+	padding: 26px;
+	border-radius: 16px;
+	background-color: #F5FAFE;
+	width: 72%;
+}
+
+.myfilterPanel .results .singleResult.positive {
+	background-color: #E2F8D6;
+}
+
+.myfilterPanel .results .singleResult.negative {
+	background-color: #FFEBE8;
+}
+
+.myfilterPanel .singleResult .resultHeader {
+	font-family: SF-Pro-Medium;
+}
+
+.myfilterPanel .singleResult .resultContent {
+	margin-top: 10px;
+	line-height: 1.4;
+	font-size: 13.5px;
+}
+
+.myfilterPanel .results .removeButtonLocation {
   	margin: auto;
 }
 
-.filterPanel .results .removeButton {
+.myfilterPanel .results .removeButton {
   	color: #ED3735;
   	background-color: white;
   	border: 2px solid #ED3735;
 }
 
-.filterPanel .results .removeButton:hover {
+.myfilterPanel .results .removeButton:hover {
   	color: white;
   	background-color: #ED3735;
   	border: 2px solid #ED3735;
-}*/
+}
 
 .seeMore {
 	font-family: SF-Pro-Medium;

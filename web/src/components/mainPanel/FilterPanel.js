@@ -63,6 +63,16 @@ class FilterPanel extends Component {
     .catch(error => console.log(error));
   }
 
+  onReviewSaved(username, review_id) {
+    const url = "/reviews/save"
+    const data = { username, review_id }
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': "application/json" }
+    })
+  }
+
   render() {
     return (
       <Card className='filterPanel'>
@@ -120,7 +130,7 @@ class FilterPanel extends Component {
                <Button
                 className='saveButton'
                 variant='outlined'
-                onClick={() => {}}>
+                onClick={() => this.onReviewSaved(this.props.username, result.review_id)}>
                 Save Review
               </Button>
               </div>

@@ -56,14 +56,6 @@ class JustReviewsPanel extends Component {
                 <div className='resultHeader'>{result.poster_username}</div>
                 <div className='resultContent'>{result.review_content}</div>
               </div>
-              <div className="removeButtonLocation">
-               <Button
-                className='removeButton'
-                variant='outlined'
-                onClick={() => {}}>
-                Remove
-              </Button>
-              </div>
             </div>
             );
           })}
