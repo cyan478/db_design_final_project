@@ -3,6 +3,7 @@ import Card from "./Card";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Search from "@material-ui/icons/Search";
+import Button from "@material-ui/core/Button";
 const fetch = require("node-fetch");
 
 class FilterPanel extends Component {
@@ -97,13 +98,24 @@ class FilterPanel extends Component {
             );
           })}
         </div>
+
         <div className='results'>
           {this.state.results.slice(0, this.state.viewingSize).map(result => {
             return (
-              <div className={`singleResult ${result.review_sentiment}`} key={result.review_id}>
+              <div className="resultRow">
+              <div className={`singleResult ${result.review_sentiment}`}>
                 <div className='resultHeader'>{result.poster_username}</div>
                 <div className='resultContent'>{result.review_content}</div>
               </div>
+              <div className="saveButtonLocation">
+               <Button
+                className='saveButton'
+                variant='outlined'
+                onClick={() => {}}>
+                Save Review
+              </Button>
+              </div>
+            </div>
             );
           })}
         </div>
