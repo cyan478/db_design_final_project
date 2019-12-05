@@ -62,14 +62,12 @@ def get_reviews():
 
    with connection.cursor() as cur:
       try:
-         print("============\n{}".format(sql_query))
          cur.execute(sql_query)
          reviews = []
          for review in cur.fetchall():
             reviews.append(review)
          cur.close()
          connection.close()
-         print(reviews)
          return {'reviews': reviews}
       except pymysql.ProgrammingError as e:
          cur.close()
@@ -242,7 +240,7 @@ def get_count():
       except pymysql.ProgrammingError as e:
          cur.close()
          connection.close()
-         return None;
+         return None; 
 
 # endpoint to INSERT saved reviews
 @app.route('/reviews/save', methods=['POST'])
@@ -263,6 +261,7 @@ def save_review():
          print(sql_query)
          cur.execute(sql_query)
          cur.close()
+         connection.commit()
          connection.close()
          return 'success'  
       except pymysql.ProgrammingError as e:
@@ -290,6 +289,7 @@ def delete_saved_review():
          print(sql_query)
          cur.execute(sql_query)
          cur.close()
+         connection.commit()
          connection.close()
          return 'success'  
       except pymysql.ProgrammingError as e:
@@ -298,7 +298,7 @@ def delete_saved_review():
          return None;         
 
 # endpoint to GET saved reviews
-@app.route('/reviews/saved', methods=['GET'])
+@app.route('/reviews/save', methods=['GET'])
 def get_saved_reviews():
    connection = pymysql.connect(host='localhost',
                            user='root',
@@ -314,7 +314,6 @@ def get_saved_reviews():
 
    with connection.cursor() as cur:
       try:
-         print(sql_query)
          cur.execute(sql_query)
          reviews = []
          for review in cur.fetchall():

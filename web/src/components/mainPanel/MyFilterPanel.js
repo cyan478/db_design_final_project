@@ -20,11 +20,7 @@ class MyFilterPanel extends Component {
   }
 
   componentDidMount() {
-    this.applyFilter("");
-  }
-
-  applyFilter(filter) {
-    var url = '/reviews?poster=' + this.props.username;
+    var url = '/reviews/save?username=' + this.props.username;
     
     fetch(url)
     .then(res => res.json())
@@ -73,16 +69,6 @@ class MyFilterPanel extends Component {
     this.setState({ filter: value });
   }
 
-  onEnterKeyPressed() {
-    this.setState({ selectedTag: "" });
-    this.applyFilter(this.state.filter);
-  }
-
-  onTagClicked(selectedTag) {
-    this.setState({ filter: "", selectedTag: selectedTag });
-    this.applyFilter(selectedTag);
-  }
-
   increaseResultSize() {
     let newSize = Math.min(this.state.viewingSize + 3, this.state.results.length);
     this.setState({ viewingSize: newSize });
@@ -109,7 +95,7 @@ class MyFilterPanel extends Component {
           <div className='title'>{this.props.title}</div>
           <div className='titleText'>{this.props.titleText}</div>
         </div>
-        <div className='search'>
+        {/* <div className='search'>
           <TextField
             variant='outlined'
             id='searchInput'
@@ -145,7 +131,7 @@ class MyFilterPanel extends Component {
               </div>
             );
           })}
-        </div>
+        </div> */}
         <div className='results'>
           {this.state.results.slice(0, this.state.viewingSize).map(result => {
             return (
