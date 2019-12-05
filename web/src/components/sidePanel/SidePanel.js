@@ -55,7 +55,7 @@ class SidePanel extends Component {
     const dropdownTitle = "Choose an Airline";
     const dropdownOptions = [
       { name: "jetblue", label: "Jetblue Airways"},
-      { name: "alaska", label: "Alaska Airlines"},
+      { name: "alaska airlines", label: "Alaska Airlines"},
       { name: "delta", label: "Delta Air Lines"}
     ];
 

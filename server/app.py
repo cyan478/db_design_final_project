@@ -5,12 +5,12 @@ from nlp import NLP
 app = Flask(__name__)
 nlp = NLP()
 
-connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
-                           db='airVisuals',
-                           charset='utf8mb4',
-                           cursorclass=pymysql.cursors.DictCursor)
+# connection = pymysql.connect(host='localhost',
+#                            user='root',
+#                            password='',
+#                            db='airVisuals',
+#                            charset='utf8mb4',
+#                            cursorclass=pymysql.cursors.DictCursor)
 
 # ========================================================
 # reviews and keywords table
@@ -18,6 +18,12 @@ connection = pymysql.connect(host='localhost',
 # endpoint to GET specified reviews from reviews table
 @app.route('/reviews', methods=['GET'])
 def get_reviews():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
    site = request.args.get('site', default=None, type=str)
    company = request.args.get('company', default=None, type=str)
    keyword = request.args.get('keyword', default=None, type=str)
@@ -51,20 +57,29 @@ def get_reviews():
 
    with connection.cursor() as cur:
       try:
+         print("============\n{}".format(sql_query))
          cur.execute(sql_query)
          reviews = []
          for review in cur.fetchall():
             reviews.append(review)
          cur.close()
+         connection.close()
          return {'reviews': reviews}
       except pymysql.ProgrammingError as e:
          cur.close()
+         connection.close()
          return None;
 
 
 # endpoint to insert rows into table
 @app.route('/reviews', methods=['POST'])
 def insert_review():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
    poster_username = request.json['poster_username']
    company_name = request.json['company_name']
    review_site_name = request.json['site_name']
@@ -123,14 +138,22 @@ def insert_review():
             cur.execute(insert_statement)
          connection.commit()
          cur.close()
+         connection.close()
          return 'success'
       except pymysql.ProgrammingError as e:
          cur.close()
+         connection.close()
          return None;
 
 # endpoint to get keywords from specific sites or companies
 @app.route('/keywords', methods=['GET'])
 def get_keywords():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
    site = request.args.get('site', default=None, type=str)
    company = request.args.get('company', default=None, type=str)
    sentiment = request.args.get('sentiment', type=str)
@@ -172,14 +195,22 @@ def get_keywords():
          for keyword in cur.fetchall():
             keywords.append(keyword)
          cur.close()
+         connection.close()
          return {'keywords': keywords}
       except pymysql.ProgrammingError as e:
          cur.close()
+         connection.close()
          return None;
 
 # endpoint to GET specified reviews from reviews table
 @app.route('/reviews/statistics', methods=['GET'])
 def get_count():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
    site = request.args.get('site', default=None, type=str)
    company = request.args.get('company', default=None, type=str)
 
@@ -197,14 +228,14 @@ def get_count():
 
    with connection.cursor() as cur:
       try:
-         print("=====================\n{}".format(sql_query))
          cur.execute(sql_query)
          count = cur.fetchone()
-         print({'count': count})
          cur.close()
+         connection.close()
          return {'count': count}      
       except pymysql.ProgrammingError as e:
          cur.close()
+         connection.close()
          return None;
 
 # ========================================================
@@ -212,6 +243,12 @@ def get_count():
 # endpoint to create user account (insert into user table)
 @app.route('/users', methods=['POST'])
 def add_user():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
    username = request.json['username']
    password = request.json['password']
    first_name = request.json['firstname']
@@ -234,14 +271,22 @@ def add_user():
             date_created))
          connection.commit()
          cur.close()
+         connection.close()
          return {'result': 'success'}
       except pymysql.ProgrammingError as e:
          cur.close()
+         connection.close()
          return None;
 
 # endpoint to get username from user table
 @app.route('/users', methods=['GET'])
 def check_user():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
    username = request.args.get('username')
    with connection.cursor() as cur:
       sql = 'select * from users where username like %s'
@@ -251,14 +296,22 @@ def check_user():
          for user in cur.fetchall():
             users.append(user)
          cur.close()
+         connection.close()
          return {'user_data': users} 
       except pymysql.ProgrammingError as e:
          cur.close()
+         connection.close()
          return None;
 
 # endpoint to change password
 @app.route('/users/password', methods=['POST'])
 def change_password():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
    username = request.json['username']
    password = request.json['password']
    with connection.cursor() as cur:
@@ -267,14 +320,15 @@ def change_password():
          where username like \'{}\';'.format(
             password,username
          )
-      print("===============\n{}".format(sql))
       try:
          cur.execute(sql)
          connection.commit()
          cur.close()
+         connection.close()
          return 'Success!'
       except pymysql.ProgrammingError as e:
          cur.close()
+         connection.close()
          return None;         
 
 if __name__ == '__main__':
