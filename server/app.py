@@ -5,12 +5,8 @@ from nlp import NLP
 app = Flask(__name__)
 nlp = NLP()
 
-# connection = pymysql.connect(host='localhost',
-#                            user='root',
-#                            password='',
-#                            db='airVisuals',
-#                            charset='utf8mb4',
-#                            cursorclass=pymysql.cursors.DictCursor)
+username = ""
+password = ""
 
 # ========================================================
 # reviews and keywords table
@@ -19,8 +15,8 @@ nlp = NLP()
 @app.route('/reviews', methods=['GET'])
 def get_reviews():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -79,8 +75,8 @@ def get_reviews():
 @app.route('/reviews', methods=['POST'])
 def insert_review():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -153,8 +149,8 @@ def insert_review():
 @app.route('/keywords', methods=['GET'])
 def get_keywords():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -210,8 +206,8 @@ def get_keywords():
 @app.route('/reviews/statistics', methods=['GET'])
 def get_count():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -246,8 +242,8 @@ def get_count():
 @app.route('/reviews/save', methods=['POST'])
 def save_review():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -273,8 +269,8 @@ def save_review():
 @app.route('/reviews/delete', methods=['POST'])
 def delete_saved_review():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -301,8 +297,8 @@ def delete_saved_review():
 @app.route('/reviews/save', methods=['GET'])
 def get_saved_reviews():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -332,8 +328,8 @@ def get_saved_reviews():
 @app.route('/users', methods=['POST'])
 def add_user():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -370,8 +366,8 @@ def add_user():
 @app.route('/users', methods=['GET'])
 def check_user():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -395,8 +391,8 @@ def check_user():
 @app.route('/users/password', methods=['POST'])
 def change_password():
    connection = pymysql.connect(host='localhost',
-                           user='root',
-                           password='',
+                           user=username,
+                           password=password,
                            db='airVisuals',
                            charset='utf8mb4',
                            cursorclass=pymysql.cursors.DictCursor)
@@ -420,4 +416,6 @@ def change_password():
          return None;         
 
 if __name__ == '__main__':
+   username = input("MySQL username: ")
+   password = input("MySQL password: ")
    app.run(debug=True)

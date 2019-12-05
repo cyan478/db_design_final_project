@@ -13,30 +13,26 @@ and another for the React app
 
 ### Setting up MySQL database
 ```sh
-# starting from main project directory
-cd server
-# log in the MySQL from terminal. This is how we did it:
-mysql -u root
+# starting from backend directory
+# log in to MySQL from terminal
 # run our dump sql script
 source <ABSOLUTE PATH TO airVisuals_dump.sql FILE>
 ```
 
 ### Setting up and running Python3 backend dependencies:
 ```
-# starting from main project directory
+# starting from backend directory
 # setup NLP
-pip3 install google-cloud-language
 export GOOGLE_APPLICATION_CREDENTIALS="[ABSOLUTE_PATH_TO_API_KEY_JSON FILE]"
-cd server
 pip3 install -r requirements.txt
 # Flask backend
 python3 app.py
+# login to mysql. It will ask you to login twice
 ```
 
 ### Starting up React App
 ```sh
-# starting from main project directory
-cd server
+# starting from web (frontend) directory
 # this should install all dependencies in our package.json
 npm install
 # start the React App, which should open a tab in your browser
