@@ -53,7 +53,7 @@ class AddReviewPanel extends Component {
 
     // to do on the backend (add the review onto the database)
     const data = {
-      poster_username: 'airVisualsUser',
+      poster_username: this.prop.username,
       company_name: 'JetBlue',
       site_name: 'AirVisuals',
       date: date,

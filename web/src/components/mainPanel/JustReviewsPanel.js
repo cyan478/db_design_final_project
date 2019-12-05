@@ -14,6 +14,28 @@ class JustReviewsPanel extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log('mounted: ' + this.props.review_site)
+    this.applyFilter("");
+  }
+
+  applyFilter(filter) {
+    // if (this.props.selectedAirline == '') {
+    //   var url = '/reviews?site=' + this.props.review_site;
+    // } else {
+    //   var url = '/reviews?company=' + encodeURIComponent(this.props.selectedAirline.trim()) + '&site=' + this.props.review_site;
+    // }
+    // console.log("getting: " + url)
+    // if (filter != "") {
+    //   url + '&keyword=' + filter;
+    // }
+    
+    // fetch(url)
+    // .then(res => res.json())
+    // .then((data) => this.setState({results: data.reviews}))
+    // .catch(error => console.log(error));
+  }
+
   onRemoveButtonClicked(reviewID) {
     // make sql call to remove the review from the db
   }

@@ -81,7 +81,7 @@ function renderGeneralInsights(selectedAirline) {
   );
 }
 
-function renderAirVisualsInsights(selectedAirline, percentage) {
+function renderAirVisualsInsights(selectedAirline, percentage, username) {
   selectedAirline = capitalize(selectedAirline);
 
   return (
@@ -104,6 +104,7 @@ function renderAirVisualsInsights(selectedAirline, percentage) {
           `Have an experience to share with other users? Write your own review about ${selectedAirline} here! Any reviews you have written can be removed under My Account in the side panel to the right.`
         }
         review_site={"twitter"}
+        username={username}
         key={'twitter'}
         tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
       />
@@ -112,6 +113,7 @@ function renderAirVisualsInsights(selectedAirline, percentage) {
         titleText={
           `Search or filter for a keyword to see what other users have written about ${selectedAirline} 2019.`
         }
+        selectedAirline={selectedAirline}
         review_site={"airvisuals"}
         key={'airvisuals'}
         tags={["flight", "bag", "customer service", "class", "smiles"]}
@@ -149,6 +151,7 @@ function renderFacebookInsights(selectedAirline, percentage) {
         titleText={
           `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Facebook posts for 2019.`
         }
+        selectedAirline={selectedAirline}
         review_site={"facebook"}
         key={'facebook'}
         tags={["flight", "bag", "customer service", "class", "smiles"]}
@@ -180,6 +183,7 @@ function renderTwitterInsights(selectedAirline, percentage) {
         titleText={
           `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Twitter posts for 2019.`
         }
+        selectedAirline={selectedAirline}
         review_site={"twitter"}
         key={'twitter'}
         tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
@@ -212,6 +216,7 @@ function renderTripAdvisorInsights(selectedAirline, percentage) {
           `Search or filter for a keyword to see what customers are saying on ${selectedAirline}’s Trip Advisor page.`
         }
         review_site={"tripadvisor"}
+        selectedAirline={selectedAirline}
         key={'tripadvisor'}
         tags={["entertainment", "aircraft", "baggage", "wi-fi", "flights"]}
       />
@@ -271,7 +276,7 @@ function renderCorrectPanel(props) {
   if (selectedPanel === "general") {
     return renderGeneralInsights(selectedAirline);
   } else if (selectedPanel === "airvisuals") {
-    return renderAirVisualsInsights(selectedAirline, percentage);
+    return renderAirVisualsInsights(selectedAirline, percentage, username);
   } else if (selectedPanel === "facebook") {
     return renderFacebookInsights(selectedAirline, percentage);
   } else if (selectedPanel === "twitter") {

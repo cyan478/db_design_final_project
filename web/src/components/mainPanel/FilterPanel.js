@@ -43,7 +43,12 @@ class FilterPanel extends Component {
   }
 
   applyFilter(filter) {
-    var url = '/reviews?site=' + this.props.review_site;
+    if (this.props.selectedAirline == '') {
+      var url = '/reviews?site=' + this.props.review_site;
+    } else {
+      var url = '/reviews?company=' + encodeURIComponent(this.props.selectedAirline.trim()) + '&site=' + this.props.review_site;
+    }
+    console.log("getting: " + url)
     if (filter != "") {
       url + '&keyword=' + filter;
     }
