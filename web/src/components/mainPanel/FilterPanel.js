@@ -3,6 +3,8 @@ import Card from "./Card";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Search from "@material-ui/icons/Search";
+import Button from "@material-ui/core/Button";
+import computedResults from "./test_reviews.json";
 const fetch = require("node-fetch");
 
 class FilterPanel extends Component {
@@ -54,7 +56,10 @@ class FilterPanel extends Component {
     
     fetch(url)
     .then(res => res.json())
-    .then((data) => this.setState({results: data.reviews}))
+    .then((data) => {
+      console.log(data);
+      this.setState({results: data.reviews})
+    })
     .catch(error => console.log(error));
   }
 
@@ -102,6 +107,7 @@ class FilterPanel extends Component {
             );
           })}
         </div>
+
         <div className='results'>
           {this.state.results.slice(0, this.state.viewingSize).map(result => {
             if (result.review_sentiment < -0.1) {
@@ -110,10 +116,20 @@ class FilterPanel extends Component {
               result.review_sentiment = 'positive'
             }
             return (
-              <div className={`singleResult ${result.review_sentiment}`} key={result.review_id}>
+              <div className="resultRow">
+              <div className={`singleResult ${result.review_sentiment}`}>
                 <div className='resultHeader'>{result.poster_username}</div>
                 <div className='resultContent'>{result.review_content}</div>
               </div>
+              <div className="saveButtonLocation">
+               <Button
+                className='saveButton'
+                variant='outlined'
+                onClick={() => {}}>
+                Save Review
+              </Button>
+              </div>
+            </div>
             );
           })}
         </div>

@@ -36,7 +36,10 @@ class MyFilterPanel extends Component {
 
     fetch(url)
     .then(res => res.json())
-    .then((data) => this.setState({results: data.reviews}))
+    .then((data) => {
+      console.log(data);
+      this.setState({results: data.reviews})
+    })
     .catch(error => console.log(error));
   }
 

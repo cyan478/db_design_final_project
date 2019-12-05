@@ -225,11 +225,11 @@ function renderTripAdvisorInsights(selectedAirline, percentage) {
 }
 
 
-function renderMyAccount() {
+function renderMyAccount(username) {
   return (
     <React.Fragment>
-      {renderTitle("Welcome back, <username>")}
-      {renderTitleText("change this TEXT.")}
+      {renderTitle(`Welcome back, ${username}`)}
+      {renderTitleText("View your written reviews on AirVisuals here.")}
       <MyFilterPanel
         title={"My Saved Reviews"}
         titleText={
@@ -284,7 +284,7 @@ function renderCorrectPanel(props) {
   } else if (selectedPanel === "tripadvisor") {
     return renderTripAdvisorInsights(selectedAirline, percentage);
   } else if (selectedPanel === "account") {
-    return renderMyAccount();
+    return renderMyAccount(username);
   } else if (selectedPanel === "accountsettings") {
     return renderAccountSettings(username);
   } else {
@@ -297,32 +297,22 @@ class MainPanel extends Component {
     super(props);
 
     this.state = {
-      percentage: 0
+      percentage: 0,
+      lastSelected: undefined,
+      lastSelectedAirline: undefined
     }
-  }
-
-  componentShouldUpdate(nextProps, nextState) {
-    if (this.state.percentage != nextState.percentage) {
-      return false;
-    }
-
-    if (this.props.selected != nextProps.selected) {
-      return false;
-    }
-
-    if (this.props.selectedAirline != nextProps.selectedAirline) {
-      return false;
-    }
-
-    return false;
   }
 
   async componentDidUpdate() {
     const { selectedAirline, selected } = this.props;
     const companies = ["airvisuals", "facebook", "twitter", "tripadvisor"];
     if (companies.includes(selected)) {
-      const percentage = await getPercentage(selectedAirline, selected);      
-      this.setState({ percentage });
+      if (this.state.lastSelected !== selected || this.state.lastSelectedAirline !== selectedAirline) {
+        console.log(this.state.lastSelected);
+        console.log(this.state.lastSelectedAirline);
+        const percentage = await getPercentage(selectedAirline, selected);    
+        this.setState({ percentage, lastSelected: selected, lastSelectedAirline: selectedAirline });        
+      }
     }
   }
 
