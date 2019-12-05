@@ -4,7 +4,6 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import Search from "@material-ui/icons/Search";
-import computedResults from "./test_reviews.json";
 const fetch = require("node-fetch");
 
 class MyFilterPanel extends Component {
@@ -15,31 +14,21 @@ class MyFilterPanel extends Component {
       filter: "",
       viewingSize: 3,
       // results: this.sourceFilter(computedResults.results),
-      results: computedResults.results,
+      results: [],
       selectedTag: ""
     };
   }
 
   componentDidMount() {
-    // fetch data and update state
-    const url = '/reviews?site=facebook&company=alaska%20airlines ';
-    // const data = {
-    //   site: "facebook",
-    //   company: " alaska airlines"
-    // };
-    
-    // const otherParams = {
-    //   headers: {'content-type':'application/json; charset=UTF-8'},
-    //   body: data,
-    //   method: 'GET'
-    // };
+    this.applyFilter("");
+  }
 
+  applyFilter(filter) {
+    var url = '/reviews?poster=' + this.props.username;
+    
     fetch(url)
     .then(res => res.json())
-    .then((data) => {
-      console.log(data);
-      this.setState({results: data.reviews})
-    })
+    .then((data) => this.setState({results: data.reviews}))
     .catch(error => console.log(error));
   }
 
@@ -97,11 +86,6 @@ class MyFilterPanel extends Component {
   increaseResultSize() {
     let newSize = Math.min(this.state.viewingSize + 3, this.state.results.length);
     this.setState({ viewingSize: newSize });
-  }
-
-  applyFilter(filter) {
-    // do something to results
-    this.setState({ results: this.filter(computedResults.results, filter) });
   }
 
   render() {

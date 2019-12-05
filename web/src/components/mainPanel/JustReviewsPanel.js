@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Card from "./Card";
 import Button from "@material-ui/core/Button";
-import computedResults from "./test_reviews.json";
 
 class JustReviewsPanel extends Component {
   constructor(props) {
@@ -10,7 +9,7 @@ class JustReviewsPanel extends Component {
     this.state = {
       viewingSize: 3,
       // results: this.sourceFilter(computedResults.results),
-      results: computedResults.results
+      results: [],
     };
   }
 
@@ -19,16 +18,7 @@ class JustReviewsPanel extends Component {
   }
 
   applyFilter(filter) {
-    if (this.props.selectedAirline == '') {
-      var url = '/reviews?site=' + this.props.review_site;
-    } else {
-      var url = '/reviews?company=' + encodeURIComponent(this.props.selectedAirline.trim()) + '&site=' + this.props.review_site;
-    }
-    var url = '/reviews?poster=' + this.props.
-    console.log("getting: " + url)
-    if (filter != "") {
-      url + '&keyword=' + filter;
-    }
+    var url = '/reviews?poster=' + this.props.username;
     
     fetch(url)
     .then(res => res.json())

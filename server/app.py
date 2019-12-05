@@ -244,6 +244,89 @@ def get_count():
          connection.close()
          return None;
 
+# endpoint to INSERT saved reviews
+@app.route('/reviews/save', methods=['POST'])
+def save_review():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
+   username = request.json['username']
+   review_id = request.json['review_id']
+   sql_query = 'insert into savedReviews (username, review_id) \
+      values (\'{}\', {});'.format(username, review_id)
+
+   with connection.cursor() as cur:
+      try:
+         print(sql_query)
+         cur.execute(sql_query)
+         cur.close()
+         connection.close()
+         return 'success'  
+      except pymysql.ProgrammingError as e:
+         cur.close()
+         connection.close()
+         return None;         
+
+# endpoint to DELETE saved reviews
+@app.route('/reviews/delete', methods=['POST'])
+def delete_saved_review():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
+   username = request.json['username']
+   review_id = request.json['review_id']
+   sql_query = 'delete from savedReviews \
+      where username like \'{}\' and \
+      review_id = {}'.format(username, review_id)
+
+   with connection.cursor() as cur:
+      try:
+         print(sql_query)
+         cur.execute(sql_query)
+         cur.close()
+         connection.close()
+         return 'success'  
+      except pymysql.ProgrammingError as e:
+         cur.close()
+         connection.close()
+         return None;         
+
+# endpoint to GET saved reviews
+@app.route('/reviews/saved', methods=['GET'])
+def get_saved_reviews():
+   connection = pymysql.connect(host='localhost',
+                           user='root',
+                           password='',
+                           db='airVisuals',
+                           charset='utf8mb4',
+                           cursorclass=pymysql.cursors.DictCursor)
+   username = request.args.get('username', type=str)
+
+   sql_query = 'select * from (select review_id from savedReviews \
+      where username like \'{}\') as t\
+      left outer join reviews on t.review_id = reviews.review_id;'.format(username)
+
+   with connection.cursor() as cur:
+      try:
+         print(sql_query)
+         cur.execute(sql_query)
+         reviews = []
+         for review in cur.fetchall():
+            reviews.append(review)
+         cur.close()
+         connection.close()
+         return {'reviews': reviews}     
+      except pymysql.ProgrammingError as e:
+         cur.close()
+         connection.close()
+         return None;         
+
 # ========================================================
 # user table
 # endpoint to create user account (insert into user table)

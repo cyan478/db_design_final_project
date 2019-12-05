@@ -232,6 +232,7 @@ function renderMyAccount(username) {
       {renderTitleText("View your written reviews on AirVisuals here.")}
       <MyFilterPanel
         title={"My Saved Reviews"}
+        username={username}
         titleText={
           "Search or filter a specific airline to find specific reviews you've saved. You can also remove saved reviews from your list."
         }
@@ -240,6 +241,7 @@ function renderMyAccount(username) {
       />
 
       <JustReviewsPanel
+        username={username}
         title={"My Written Reviews"}
         titleText={
           "These are reviews you have contributed to this site with your account."
