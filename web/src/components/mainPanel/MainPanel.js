@@ -307,9 +307,11 @@ class MainPanel extends Component {
     const { selectedAirline, selected } = this.props;
     const companies = ["airvisuals", "facebook", "twitter", "tripadvisor"];
     if (companies.includes(selected)) {
-      if (this.state.lastSelected != selected || this.state.selectedAirline != selectedAirline) {
+      if (this.state.lastSelected !== selected || this.state.lastSelectedAirline !== selectedAirline) {
+        console.log(this.state.lastSelected);
+        console.log(this.state.lastSelectedAirline);
         const percentage = await getPercentage(selectedAirline, selected);    
-        this.setState({ percentage });        
+        this.setState({ percentage, lastSelected: selected, lastSelectedAirline: selectedAirline });        
       }
     }
   }
